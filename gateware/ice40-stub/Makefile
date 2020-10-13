@@ -38,7 +38,7 @@ $(BUILD_TMP)/bootloader.bin: $(BUILD_TMP)/$(PROJ).bin $(DFU_PROJ_BASE)/build-tmp
 	./sw/mkmultiboot.py $@ $(BUILD_TMP)/$(PROJ).bin $(DFU_PROJ_BASE)/build-tmp/no2bootloader-ice40.bin:$(DFU_PROJ_BASE)/fw/fw_dfu.bin
 
 $(DFU_PROJ_BASE)/build-tmp/no2bootloader-ice40.bin:
-	make -C $(DFU_PROJ_BASE) BOOT_CODE=dfu
+	make -C $(DFU_PROJ_BASE)
 
 $(DFU_PROJ_BASE)/fw/fw_dfu.bin:
 	make -C $(DFU_PROJ_BASE)/fw fw_dfu.bin

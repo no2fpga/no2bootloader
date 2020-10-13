@@ -38,30 +38,15 @@ SOURCES_dfu=\
 	usb_desc_dfu.c \
 	$(NULL)
 
-HEADERS_app=\
-	usb_str_app.gen.h \
-	$(NULL)
 
-SOURCES_app=\
-	fw_app.c \
-	usb_desc_app.c \
-	$(NULL)
-
-
-all: boot_dfu.hex boot_app.hex fw_dfu.bin fw_app.bin
+all: boot_dfu.hex fw_dfu.bin
 
 
 boot_dfu.elf: lnk-boot.lds boot.S
 	$(CC) $(CFLAGS) -Wl,-Bstatic,-T,lnk-boot.lds,--strip-debug -DFLASH_APP_ADDR=0x00060000 -o $@ boot.S
 
-boot_app.elf: lnk-boot.lds boot.S
-	$(CC) $(CFLAGS) -Wl,-Bstatic,-T,lnk-boot.lds,--strip-debug -DFLASH_APP_ADDR=0x000a0000 -o $@ boot.S
-
 fw_dfu.elf: lnk-app.lds $(HEADERS_dfu) $(SOURCES_dfu) $(HEADERS_common) $(SOURCES_common)
 	$(CC) $(CFLAGS) -Wl,-Bstatic,-T,lnk-app.lds,--strip-debug -o $@ $(SOURCES_common) $(SOURCES_dfu)
-
-fw_app.elf: lnk-app.lds $(HEADERS_app) $(SOURCES_app) $(HEADERS_common) $(SOURCES_common)
-	$(CC) $(CFLAGS) -Wl,-Bstatic,-T,lnk-app.lds,--strip-debug -o $@ $(SOURCES_common) $(SOURCES_app)
 
 
 %.hex: %.bin
@@ -71,21 +56,11 @@ fw_app.elf: lnk-app.lds $(HEADERS_app) $(SOURCES_app) $(HEADERS_common) $(SOURCE
 	$(OBJCOPY) -O binary $< $@
 
 
-prog_dfu: fw_dfu.bin
+prog: fw_dfu.bin
 	$(ICEPROG) -o 384k $<
-
-prog_app: fw_app.bin
-	$(ICEPROG) -o 640k $<
-
-dfuprog_app: fw_app.bin
-ifeq ($(DFU_SERIAL),)
-	@echo "[!] DFU_SERIAL not defined"
-else
-	$(DFU_UTIL) -R -S $(DFU_SERIAL) -a 1 -D $<
-endif
 
 
 clean:
 	rm -f *.bin *.hex *.elf *.o *.gen.h
 
-.PHONY: prog_dfu prog_app clean
+.PHONY: prog clean

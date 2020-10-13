@@ -110,10 +110,6 @@ module top (
 	wire ub_we;
 	wire ub_ack;
 
-	// LEDs
-	reg  [4:0] led_ctrl;
-	wire [2:0] rgb_pwm;
-
 	// WarmBoot
 	reg boot_now;
 	reg [1:0] boot_sel;
@@ -264,57 +260,25 @@ module top (
 	);
 
 
+	// RGB LEDs [3]
+	// --------
 
-	// LEDs
-	// ----
-
-	SB_LEDDA_IP led_I (
-		.LEDDCS(wb_addr[4] & wb_we),
-		.LEDDCLK(clk_24m),
-		.LEDDDAT7(wb_wdata[7]),
-		.LEDDDAT6(wb_wdata[6]),
-		.LEDDDAT5(wb_wdata[5]),
-		.LEDDDAT4(wb_wdata[4]),
-		.LEDDDAT3(wb_wdata[3]),
-		.LEDDDAT2(wb_wdata[2]),
-		.LEDDDAT1(wb_wdata[1]),
-		.LEDDDAT0(wb_wdata[0]),
-		.LEDDADDR3(wb_addr[3]),
-		.LEDDADDR2(wb_addr[2]),
-		.LEDDADDR1(wb_addr[1]),
-		.LEDDADDR0(wb_addr[0]),
-		.LEDDDEN(wb_cyc[3]),
-		.LEDDEXE(led_ctrl[1]),
-		.PWMOUT0(rgb_pwm[0]),
-		.PWMOUT1(rgb_pwm[1]),
-		.PWMOUT2(rgb_pwm[2]),
-		.LEDDON()
-	);
-
-	SB_RGBA_DRV #(
+	ice40_rgb_wb #(
 		.CURRENT_MODE("0b1"),
 		.RGB0_CURRENT("0b000001"),
 		.RGB1_CURRENT("0b000001"),
 		.RGB2_CURRENT("0b000001")
-	) rgb_drv_I (
-		.RGBLEDEN(led_ctrl[2]),
-		.RGB0PWM(rgb_pwm[0]),
-		.RGB1PWM(rgb_pwm[1]),
-		.RGB2PWM(rgb_pwm[2]),
-		.CURREN(led_ctrl[3]),
-		.RGB0(rgb[0]),
-		.RGB1(rgb[1]),
-		.RGB2(rgb[2])
+	) rgb_I (
+		.pad_rgb    (rgb),
+		.wb_addr    (wb_addr[4:0]),
+		.wb_rdata   (wb_rdata[3]),
+		.wb_wdata   (wb_wdata),
+		.wb_we      (wb_we),
+		.wb_cyc     (wb_cyc[3]),
+		.wb_ack     (wb_ack[3]),
+		.clk        (clk_24m),
+		.rst        (rst)
 	);
-
-	always @(posedge clk_24m or posedge rst)
-		if (rst)
-			led_ctrl <= 0;
-		else if (wb_cyc[3] & ~wb_addr[4] & wb_we)
-			led_ctrl <= wb_wdata[4:0];
-
-	assign wb_rdata[3] = { WB_DW{1'b0} };
-	assign wb_ack[3] = wb_cyc[3];
 
 
 	// USB Core

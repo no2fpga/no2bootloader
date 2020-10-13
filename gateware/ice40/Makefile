@@ -3,10 +3,10 @@ PROJ = no2bootloader-ice40
 
 PROJ_DEPS := no2usb no2misc no2ice40
 PROJ_RTL_SRCS := $(addprefix rtl/, \
-	bridge.v \
 	dfu_helper.v \
 	picorv32.v \
 	picorv32_ice40_regs.v \
+	soc_picorv32_bridge.v \
 	soc_bram.v \
 	soc_spram.v \
 	sysmgr.v \

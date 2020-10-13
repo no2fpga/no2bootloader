@@ -3,7 +3,7 @@
  *
  * vim: ts=4 sw=4
  *
- * Copyright (C) 2019-2020  Sylvain Munaut <tnt@246tNt.com>
+ * Copyright (C) 2020  Sylvain Munaut <tnt@246tNt.com>
  * SPDX-License-Identifier: CERN-OHL-P-2.0
  */
 
@@ -14,11 +14,11 @@ module soc_bram #(
 	parameter INIT_FILE = ""
 )(
 	input  wire [AW-1:0] addr,
-	output reg  [31:0] rdata,
-	input  wire [31:0] wdata,
-	input  wire [ 3:0] wmsk,
-	input  wire we,
-	input  wire clk
+	output reg    [31:0] rdata,
+	input  wire   [31:0] wdata,
+	input  wire   [ 3:0] wmsk,
+	input  wire          we,
+	input  wire          clk
 );
 
 	reg [31:0] mem [0:(1<<AW)-1];

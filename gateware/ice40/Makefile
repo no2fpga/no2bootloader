@@ -10,6 +10,7 @@ PROJ_RTL_SRCS := $(addprefix rtl/, \
 	soc_bram.v \
 	soc_spram.v \
 	sysmgr.v \
+	wb_epbuf.v \
 )
 PROJ_SIM_SRCS := $(addprefix sim/, \
 	spiflash.v \

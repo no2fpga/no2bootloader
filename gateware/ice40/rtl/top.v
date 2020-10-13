@@ -454,21 +454,25 @@ module top (
 	assign wb_rdata[4][31:16] = 16'h0000;
 
 	// EP buffer interface
-	reg wb_ack_ep;
-
-	always @(posedge clk_24m)
-		wb_ack_ep <= wb_cyc[5] & ~wb_ack_ep;
-
-	assign wb_ack[5] = wb_ack_ep;
-
-	assign ep_tx_addr_0 = wb_addr[8:0];
-	assign ep_tx_data_0 = wb_wdata;
-	assign ep_tx_we_0   = wb_cyc[5] & ~wb_ack[5] & wb_we;
-
-	assign ep_rx_addr_0 = wb_addr[8:0];
-	assign ep_rx_re_0   = 1'b1;
-
-	assign wb_rdata[5] = wb_cyc[5] ? ep_rx_data_1 : 32'h00000000;
+	wb_epbuf #(
+		.AW(9),
+		.DW(32)
+	) epbuf_I (
+		.wb_addr     (wb_addr),
+		.wb_rdata    (wb_rdata[5]),
+		.wb_wdata    (wb_wdata),
+		.wb_we       (wb_we),
+		.wb_cyc      (wb_cyc[5]),
+		.wb_ack      (wb_ack[5]),
+		.ep_tx_addr_0(ep_tx_addr_0),
+		.ep_tx_data_0(ep_tx_data_0),
+		.ep_tx_we_0  (ep_tx_we_0),
+		.ep_rx_addr_0(ep_rx_addr_0),
+		.ep_rx_data_1(ep_rx_data_1),
+		.ep_rx_re_0  (ep_rx_re_0),
+		.clk         (clk_24m),
+		.rst         (rst)
+	);
 
 
 	// Warm Boot

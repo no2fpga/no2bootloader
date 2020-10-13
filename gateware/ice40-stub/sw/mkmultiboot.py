@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+#
+# Utility to create multi-boot image for the ice40
+#
+# Copyright (C) 2020 Sylvain Munaut
+# SPDX-License-Identifier: MIT
+#
 
 import sys
 

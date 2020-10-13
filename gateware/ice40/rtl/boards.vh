@@ -9,13 +9,10 @@
 
 `ifdef BOARD_BITSY_V0
 	// 1bitsquared iCEbreaker bitsy prototypes (v0.x)
-	`define HAS_PSRAM
 `elsif BOARD_BITSY_V1
 	// 1bitsquared iCEbreaker bitsy prod (v1.x)
-	`define HAS_PSRAM
 `elsif BOARD_ICEBREAKER
 	// 1bitsquared iCEbreaker
-	`define HAS_PSRAM
 `elsif BOARD_ICEPICK
 	// iCEpick
 	`define PLL_CORE

@@ -16,10 +16,6 @@ module top (
 	inout  wire spi_miso,
 	inout  wire spi_clk,
 	inout  wire spi_flash_cs_n,
-`ifdef HAS_PSRAM
-	inout  wire spi_ram_cs_n,
-`endif
-
 
 	// USB
 	inout  wire usb_dp,
@@ -343,9 +339,6 @@ module top (
 
 		// Bypass OE for CS_n lines
 	assign spi_flash_cs_n = sio_csn_o[0];
-`ifdef HAS_PSRAM
-	assign spi_ram_cs_n   = sio_csn_o[1];
-`endif
 
 	// Bus interface
 	assign sb_addr = { 4'h0, wb_addr[3:0] };

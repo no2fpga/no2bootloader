@@ -7,58 +7,36 @@
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef FLASH_APP_ADDR
-#define FLASH_APP_ADDR 0x00100000
+#ifndef APP_FLASH_ADDR
+#define APP_FLASH_ADDR 0x00100000
+#endif
+
+#ifndef APP_SRAM_ADDR
+#define APP_SRAM_ADDR 0x00020000
+#endif
+
+#ifndef APP_SIZE
+#define APP_SIZE 0x00010000
 #endif
 
 	.section .text.start
 	.global _start
 _start:
-
-#ifdef BOOT_DEBUG
-	// Set UART divisor
-	li	a0, 0x81000004
-	li	a1, 22
-	sw	a1, 0(a0)
-
-	// Output 'a'
-	li	a0, 0x81000000
-	li	a1, 97
-	sw	a1, 0(a0)
-#endif
-
 	// SPI init
 	jal	spi_init
 
-#ifdef BOOT_DEBUG
-	// Output 'b'
-	li	a0, 0x81000000
-	li	a1, 98
-	sw	a1, 0(a0)
-#endif
-
-	li	a0, 0x00020000
-#ifdef SPRAM128K
-	li	a1, 0x00020000
-#else
-	li	a1, 0x00010000
-#endif
-	li	a2, FLASH_APP_ADDR
+	// Read from flash to SRAM
+	li	a0, APP_SRAM_ADDR
+	li	a1, APP_SIZE
+	li	a2, APP_FLASH_ADDR
 	jal	spi_flash_read
-
-#ifdef BOOT_DEBUG
-	// Output 'c'
-	li	a0, 0x81000000
-	li	a1, 99
-	sw	a1, 0(a0)
-#endif
 
 	// Setup reboot code
 	li	t0, 0x0002006f
 	sw	t0, 0(zero)
 
 	// Jump to main code
-	j	0x00020000
+	j	APP_SRAM_ADDR
 
 
 	.equ    SPI_BASE, 0x82000000

@@ -1,5 +1,5 @@
 # Project config
-PROJ := boot_stub
+PROJ := ice40-stub
 
 PROJ_DEPS := no2misc
 PROJ_RTL_SRCS := $(addprefix rtl/, \

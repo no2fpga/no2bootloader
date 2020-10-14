@@ -35,8 +35,8 @@ NEXTPNR_ARGS = --pre-pack data/clocks.py --seed 2
 include ../build/project-rules.mk
 
 # Custom rules
-fw/boot_dfu.hex:
-	make -C fw boot_dfu.hex
+fw/boot.hex:
+	make -C fw boot.hex
 
-$(BUILD_TMP)/boot.hex: fw/boot_dfu.hex
+$(BUILD_TMP)/boot.hex: fw/boot.hex
 	cp $< $@

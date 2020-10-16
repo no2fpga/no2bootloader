@@ -55,6 +55,16 @@ boot_app(void)
 	*boot = (1 << 2) | (2 << 0);
 }
 
+static void
+patch_descriptors(bool bl_upgrade)
+{
+	volatile struct usb_conf_desc *conf = (void*)dfu_stack_desc.conf[0];
+	int n = bl_upgrade ? 4 : 2;
+
+	/* We patch the descriptor length ... in RO section but not really RO */
+	conf->wTotalLength = sizeof( struct usb_conf_desc) + n * (sizeof(struct usb_intf_desc) + sizeof(struct usb_dfu_desc));
+}
+
 
 // ---------------------------------------------------------------------------
 // USB DFU driver callbacks
@@ -94,6 +104,8 @@ usb_dfu_cb_flash_program(const void *data, uint32_t addr, unsigned size)
 static const struct usb_dfu_zone dfu_zones[] = {
 	{ 0x00080000, 0x000a0000 },     /* iCE40 bitstream */
 	{ 0x000a0000, 0x000c0000 },     /* RISC-V firmware */
+	{ 0x00040000, 0x00060000 },     /* Bootloader bitstream */
+	{ 0x00060000, 0x00080000 },     /* Bootloader firmware  */
 };
 
 
@@ -103,6 +115,7 @@ static const struct usb_dfu_zone dfu_zones[] = {
 
 void main()
 {
+	bool bl_upgrade = false;
 	int cmd = 0;
 
 	/* Init console IO */
@@ -111,7 +124,7 @@ void main()
 
 	/* LED */
 	led_init();
-	led_color(72, 64, 0);
+	led_color(8, 8, 8);
 	led_blink(true, 150, 150);
 	led_breathe(true, 50, 100);
 	led_state(true);
@@ -119,10 +132,20 @@ void main()
 	/* SPI */
 	spi_init();
 
+	/* Should be allow boot loader upgrad ? */
+	bl_upgrade = ((flash_read_sr(1) & 0x7c) == 0);
+
+	if (bl_upgrade)
+		led_color(64, 0, 16);
+	else
+		led_color(0, 16, 64);
+
+	patch_descriptors(bl_upgrade);
+
 	/* Enable USB directly */
 	serial_no_init();
 	usb_init(&dfu_stack_desc);
-	usb_dfu_init(dfu_zones, 2);
+	usb_dfu_init(dfu_zones, 4);
 	usb_msos20_init(NULL);
 	usb_connect();
 

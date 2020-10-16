@@ -4,3 +4,5 @@ Nitro FPGA
 DFU
 iCE40 bitstream
 RISC-V firmware
+Bootloader bitstream (DANGER !)
+Bootloader firmware (DANGER !)

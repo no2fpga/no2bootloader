@@ -16,6 +16,10 @@ static const struct {
 	struct usb_dfu_desc dfu_fpga;
 	struct usb_intf_desc if_riscv;
 	struct usb_dfu_desc dfu_riscv;
+	struct usb_intf_desc if_bl_fpga;
+	struct usb_dfu_desc dfu_bl_fpga;
+	struct usb_intf_desc if_bl_riscv;
+	struct usb_dfu_desc dfu_bl_riscv;
 } __attribute__ ((packed)) _dfu_conf_desc = {
 	.conf = {
 		.bLength                = sizeof(struct usb_conf_desc),
@@ -58,6 +62,44 @@ static const struct {
 		.iInterface		= 6,
 	},
 	.dfu_riscv = {
+		.bLength		= sizeof(struct usb_dfu_desc),
+		.bDescriptorType	= USB_DT_DFU,
+		.bmAttributes		= 0x0d,
+		.wDetachTimeOut		= 1000,
+		.wTransferSize		= 4096,
+		.bcdDFUVersion		= 0x0101,
+	},
+	.if_bl_fpga = {
+		.bLength		= sizeof(struct usb_intf_desc),
+		.bDescriptorType	= USB_DT_INTF,
+		.bInterfaceNumber	= 0,
+		.bAlternateSetting	= 2,
+		.bNumEndpoints		= 0,
+		.bInterfaceClass	= 0xfe,
+		.bInterfaceSubClass	= 0x01,
+		.bInterfaceProtocol	= 0x02,
+		.iInterface		= 7,
+	},
+	.dfu_bl_fpga = {
+		.bLength		= sizeof(struct usb_dfu_desc),
+		.bDescriptorType	= USB_DT_DFU,
+		.bmAttributes		= 0x0d,
+		.wDetachTimeOut		= 1000,
+		.wTransferSize		= 4096,
+		.bcdDFUVersion		= 0x0101,
+	},
+	.if_bl_riscv = {
+		.bLength		= sizeof(struct usb_intf_desc),
+		.bDescriptorType	= USB_DT_INTF,
+		.bInterfaceNumber	= 0,
+		.bAlternateSetting	= 3,
+		.bNumEndpoints		= 0,
+		.bInterfaceClass	= 0xfe,
+		.bInterfaceSubClass	= 0x01,
+		.bInterfaceProtocol	= 0x02,
+		.iInterface		= 8,
+	},
+	.dfu_bl_riscv = {
 		.bLength		= sizeof(struct usb_dfu_desc),
 		.bDescriptorType	= USB_DT_DFU,
 		.bmAttributes		= 0x0d,

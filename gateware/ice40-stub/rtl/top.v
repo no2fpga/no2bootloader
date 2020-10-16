@@ -125,7 +125,7 @@ module top (
 		case (state)
 			ST_START:
 				// Check for immediate boot
-				state_nxt <= btn_v ? ST_BOOT : ST_WAIT;
+				state_nxt <= btn_v ? ST_FLASH_LOCK : ST_WAIT;
 
 			ST_WAIT:
 				// Wait for first release
@@ -190,7 +190,7 @@ module top (
 			fl_skip_lock <= 1'b1;
 
 	// Go signal
-	assign fl_go = (state == ST_SEL) & timer_tick & ~fl_skip_lock;
+	assign fl_go = (state != ST_FLASH_LOCK) & (state_nxt == ST_FLASH_LOCK);
 
 	// SPI command
 	flash_lock #(

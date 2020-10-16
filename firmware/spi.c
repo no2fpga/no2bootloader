@@ -104,6 +104,8 @@ spi_xfer(unsigned cs, struct spi_xfer_chunk *xfer, unsigned n)
 #define FLASH_CMD_PAGE_PROGRAM		0x02
 #define FLASH_CMD_CHIP_ERASE		0x60
 #define FLASH_CMD_SECTOR_ERASE		0x20
+#define FLASH_CMD_BLOCK_ERASE_32k	0x52
+#define FLASH_CMD_BLOCK_ERASE_64k	0xd8
 
 void
 flash_cmd(uint8_t cmd)
@@ -212,12 +214,30 @@ flash_page_program(const void *src, uint32_t addr, unsigned len)
 	spi_xfer(SPI_CS_FLASH, xfer, 2);
 }
 
-void
-flash_sector_erase(uint32_t addr)
+static void
+_flash_erase(uint8_t cmd_byte, uint32_t addr)
 {
-	uint8_t cmd[4] = { FLASH_CMD_SECTOR_ERASE, ((addr >> 16) & 0xff), ((addr >> 8) & 0xff), (addr & 0xff)  };
+	uint8_t cmd[4] = { cmd_byte, ((addr >> 16) & 0xff), ((addr >> 8) & 0xff), (addr & 0xff)  };
 	struct spi_xfer_chunk xfer[1] = {
 		{ .data = (void*)cmd, .len = 4,   .read = false, .write = true,  },
 	};
 	spi_xfer(SPI_CS_FLASH, xfer, 1);
+}
+
+void
+flash_sector_erase(uint32_t addr)
+{
+	_flash_erase(FLASH_CMD_SECTOR_ERASE, addr);
+}
+
+void
+flash_block_erase_32k(uint32_t addr)
+{
+	_flash_erase(FLASH_CMD_BLOCK_ERASE_32k, addr);
+}
+
+void
+flash_block_erase_64k(uint32_t addr)
+{
+	_flash_erase(FLASH_CMD_BLOCK_ERASE_64k, addr);
 }

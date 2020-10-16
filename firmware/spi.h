@@ -34,3 +34,5 @@ void flash_write_sr(uint8_t sr);
 void flash_read(void *dst, uint32_t addr, unsigned len);
 void flash_page_program(const void *src, uint32_t addr, unsigned len);
 void flash_sector_erase(uint32_t addr);
+void flash_block_erase_32k(uint32_t addr);
+void flash_block_erase_64k(uint32_t addr);

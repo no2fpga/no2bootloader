@@ -52,11 +52,46 @@ boot_app(void)
 	*boot = (1 << 2) | (2 << 0);
 }
 
+
+// ---------------------------------------------------------------------------
+// USB DFU driver callbacks
+// ---------------------------------------------------------------------------
+
 void
 usb_dfu_cb_reboot(void)
 {
 	boot_app();
 }
+
+bool
+usb_dfu_cb_flash_busy(void)
+{
+	return flash_read_sr() & 1;
+}
+
+void
+usb_dfu_cb_flash_erase(uint32_t addr, unsigned size)
+{
+	flash_write_enable();
+
+	switch (size) {
+	case 4096:  flash_sector_erase(addr);
+	case 32678: flash_block_erase_32k(addr);
+	case 65536: flash_block_erase_64k(addr);
+	}
+}
+
+void
+usb_dfu_cb_flash_program(const void *data, uint32_t addr, unsigned size)
+{
+	flash_write_enable();
+	flash_page_program(data, addr, size);
+}
+
+
+// ---------------------------------------------------------------------------
+// Main
+// ---------------------------------------------------------------------------
 
 void main()
 {

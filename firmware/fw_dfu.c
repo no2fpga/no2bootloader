@@ -101,15 +101,6 @@ void main()
 
 			switch (cmd)
 			{
-			case 'p':
-				usb_debug_print();
-				break;
-			case 'c':
-				usb_connect();
-				break;
-			case 'd':
-				usb_disconnect();
-				break;
 			case 'b':
 				boot_app();
 				break;

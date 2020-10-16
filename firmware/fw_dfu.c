@@ -34,6 +34,8 @@ serial_no_init()
 	flash_unique_id(buf);
 	printf("Flash Unique ID    : %s\n", hexstr(buf, 8, true));
 
+	printf("Flash SR1 %02x / SR2 %02x\n", flash_read_sr(1), flash_read_sr(2));
+
 	/* Overwrite descriptor string */
 		/* In theory in rodata ... but nothing is ro here */
 	id = hexstr(buf, 8, false);
@@ -67,7 +69,7 @@ usb_dfu_cb_reboot(void)
 bool
 usb_dfu_cb_flash_busy(void)
 {
-	return flash_read_sr() & 1;
+	return flash_read_sr(1) & 1;
 }
 
 void

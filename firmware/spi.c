@@ -98,7 +98,11 @@ spi_xfer(unsigned cs, struct spi_xfer_chunk *xfer, unsigned n)
 #define FLASH_CMD_READ_UNIQUE_ID	0x4b
 
 #define FLASH_CMD_READ_SR1		0x05
+#define FLASH_CMD_READ_SR2		0x35
+#define FLASH_CMD_READ_SR3		0x15
 #define FLASH_CMD_WRITE_SR1		0x01
+#define FLASH_CMD_WRITE_SR2		0x31
+#define FLASH_CMD_WRITE_SR3		0x11
 
 #define FLASH_CMD_READ_DATA		0x03
 #define FLASH_CMD_PAGE_PROGRAM		0x02
@@ -170,25 +174,38 @@ flash_unique_id(void *id)
 }
 
 uint8_t
-flash_read_sr(void)
+flash_read_sr(int srno)
 {
-	uint8_t cmd = FLASH_CMD_READ_SR1;
+	uint8_t cmd;
 	uint8_t rv;
 	struct spi_xfer_chunk xfer[2] = {
 		{ .data = (void*)&cmd, .len = 1, .read = false, .write = true,  },
 		{ .data = (void*)&rv,  .len = 1, .read = true,  .write = false, },
 	};
+	switch (srno) {
+	case 1:  cmd = FLASH_CMD_READ_SR1; break;
+	case 2:  cmd = FLASH_CMD_READ_SR2; break;
+	case 3:  cmd = FLASH_CMD_READ_SR3; break;
+	default: return 0;
+	}
 	spi_xfer(SPI_CS_FLASH, xfer, 2);
 	return rv;
 }
 
 void
-flash_write_sr(uint8_t sr)
+flash_write_sr(int srno, uint8_t srval)
 {
-	uint8_t cmd[2] = { FLASH_CMD_WRITE_SR1, sr };
+	uint8_t cmd[2];
 	struct spi_xfer_chunk xfer[1] = {
 		{ .data = (void*)cmd, .len = 2, .read = false, .write = true,  },
 	};
+	switch (srno) {
+	case 1:  cmd[0] = FLASH_CMD_WRITE_SR1; break;
+	case 2:  cmd[0] = FLASH_CMD_WRITE_SR2; break;
+	case 3:  cmd[0] = FLASH_CMD_WRITE_SR3; break;
+	default: return;
+	}
+	cmd[1] = srval;
 	spi_xfer(SPI_CS_FLASH, xfer, 1);
 }
 

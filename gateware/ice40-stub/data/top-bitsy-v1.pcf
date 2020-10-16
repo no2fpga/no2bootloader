@@ -1,3 +1,9 @@
+# SPI
+set_io -nowarn             spi_mosi 14
+set_io -nowarn -pullup yes spi_miso 17
+set_io -nowarn             spi_clk  15
+set_io -nowarn -pullup yes spi_cs_n 16
+
 # USB
 set_io -nowarn usb_dp 42
 set_io -nowarn usb_dn 38

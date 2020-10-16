@@ -3,7 +3,10 @@ PROJ := ice40-stub
 
 PROJ_DEPS := no2misc
 PROJ_RTL_SRCS := $(addprefix rtl/, \
+	flash_lock.v \
 )
+PROJ_TESTBENCHES := \
+	flash_lock_tb
 PROJ_TOP_SRC := rtl/top.v
 PROJ_TOP_MOD := top
 

@@ -32,19 +32,26 @@ module top (
 `ifdef HAS_USB
 	output wire usb_dp,
 	output wire usb_dn,
-	output wire usb_pu
+	output wire usb_pu,
 `endif
+
+	// SPI
+	output wire spi_mosi,
+	input  wire spi_miso,
+	output wire spi_clk,
+	output wire spi_cs_n
 );
 
 	// FSM
 	// ---
 
 	localparam
-		ST_START	= 0,
-		ST_WAIT		= 1,
-		ST_SEL		= 2,
-		ST_SEL_WAIT = 3,
-		ST_BOOT		= 4;
+		ST_START      = 0,
+		ST_WAIT       = 1,
+		ST_SEL        = 2,
+		ST_SEL_WAIT   = 3,
+		ST_FLASH_LOCK = 4,
+		ST_BOOT       = 5;
 
 
 	// Signals
@@ -59,6 +66,11 @@ module top (
 	// FSM
 	reg  [2:0] state_nxt;
 	reg  [2:0] state;
+
+	// Flash locking
+	reg  fl_skip_lock;
+	wire fl_go;
+	wire fl_rdy;
 
 	// Boot selector
 	wire boot_now;
@@ -127,12 +139,16 @@ module top (
 
 				// Or wait for timeout
 				else if (timer_tick)
-					state_nxt <= ST_BOOT;
+					state_nxt <= fl_skip_lock ? ST_BOOT : ST_FLASH_LOCK;
 
 			ST_SEL_WAIT:
 				// Wait for button to re-arm
 				if (timer_tick)
 					state_nxt <= ST_SEL;
+
+			ST_FLASH_LOCK:
+				if (fl_rdy)
+					state_nxt <= ST_BOOT;
 
 			ST_BOOT:
 				// Nothing to do ... will reconfigure shortly
@@ -159,6 +175,47 @@ module top (
 
 	assign timer_rst  = (btn_v == 1'b0) | timer_tick;
 	assign timer_tick = (state == ST_SEL_WAIT) ? timer[15] : timer[23];
+
+
+	// Flash locking
+	// -------------
+
+`ifdef FLASH_LOCK
+
+	// Keep track if we should lock or not
+	always @(posedge clk)
+		if (rst)
+			fl_skip_lock <= 1'b0;
+		else if ((state == ST_SEL) & (boot_sel == 2'b00) & btn_f)
+			fl_skip_lock <= 1'b1;
+
+	// Go signal
+	assign fl_go = (state == ST_SEL) & timer_tick & ~fl_skip_lock;
+
+	// SPI command
+	flash_lock #(
+		.LOCK_DATA(`FLASH_LOCK)
+	) flash_lock_I (
+		.spi_mosi (spi_mosi),
+		.spi_miso (spi_miso),
+		.spi_clk  (spi_clk),
+		.spi_cs_n (spi_cs_n),
+		.go       (fl_go),
+		.rdy      (fl_rdy),
+		.clk      (clk),
+		.rst      (rst)
+	);
+
+`else
+
+	// Dummy
+	assign spi_mosi = 1'b0;
+	assign spi_clk  = 1'b0;
+	assign spi_cs_n = 1'b1;
+
+	assign fl_rdy = 1'b1;
+
+`endif
 
 
 	// Warm Boot

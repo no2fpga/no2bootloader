@@ -14,6 +14,13 @@
 	`define HAS_RGB
 	`define RGB_DIM 3
 	`define RGB_MAP 12'h201		// 41=Blue, 40=Red, 39=Green
+		// Assumes W25Q128
+	`define FLASH_LOCK { \
+		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \
+		2'b00, 8'h01,	/* WRITE_SR */ \
+		2'b00, 8'h28,	/* SR1 value */ \
+		2'b11, 8'h03	/* SR2 value */ \
+	}
 `elsif BOARD_BITSY_V1
 	// 1bitsquared iCEbreaker bitsy prod (v1.x)
 	`define HAS_USB
@@ -21,6 +28,13 @@
 	`define HAS_RGB
 	`define RGB_DIM 3
 	`define RGB_MAP 12'h210		// 41=Blue, 40=Green, 39=Red
+		// Assumes W25Q128
+	`define FLASH_LOCK { \
+		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \
+		2'b00, 8'h01,	/* WRITE_SR */ \
+		2'b00, 8'h28,	/* SR1 value */ \
+		2'b11, 8'h03	/* SR2 value */ \
+	}
 `elsif BOARD_ICEBREAKER
 	// 1bitsquare iCEbreaker
 	`define HAS_USB
@@ -29,6 +43,13 @@
 	`define RGB_DIM 3
 	`define RGB_MAP 12'h012		// 41=Red, 40=Green, 39=Blue
 //	`define RGB_MAP 12'h120		// 41=Green, 40=Blue, 39=Red (Hacked v1.0b)
+		// Assumes W25Q128
+	`define FLASH_LOCK { \
+		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \
+		2'b00, 8'h01,	/* WRITE_SR */ \
+		2'b00, 8'h28,	/* SR1 value */ \
+		2'b11, 8'h03	/* SR2 value */ \
+	}
 `elsif BOARD_ICEPICK
 	// iCEpick
 	`define HAS_VIO
@@ -36,17 +57,38 @@
 	`define HAS_RGB
 	`define RGB_MAP 12'h012		// 41=Red, 40=Green, 39=Blue
 //	`define RGB_MAP 12'h210		// 41=Blue, 40=Green, 39=Red (Alt RGB LED)
+		// Assumes W25Q80 or GD25Q16
+	`define FLASH_LOCK { \
+		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \
+		2'b00, 8'h01,	/* WRITE_SR */ \
+		2'b00, 8'h30,	/* SR1 value */ \
+		2'b11, 8'h01	/* SR2 value */ \
+	}
 `elsif BOARD_ICE1USB
 	// icE1usb
 	`define HAS_USB
 	`define HAS_RGB
 	`define RGB_MAP 12'h012		// 41=Red, 40=Green, 39=Blue
+		// Assumes W25Q80
+	`define FLASH_LOCK { \
+		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \
+		2'b00, 8'h01,	/* WRITE_SR */ \
+		2'b00, 8'h30,	/* SR1 value */ \
+		2'b11, 8'h01	/* SR2 value */ \
+	}
 `elsif BOARD_E1TRACER
 	// osmocom E1 tracer
 	`define HAS_VIO				// Compatibility with icepick proto
 	`define HAS_USB
 	`define HAS_RGB
 	`define RGB_MAP 12'h012		// 41=Red, 40=Green, 39=Blue
+		// Assumes W25Q80
+	`define FLASH_LOCK { \
+		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \
+		2'b00, 8'h01,	/* WRITE_SR */ \
+		2'b00, 8'h30,	/* SR1 value */ \
+		2'b11, 8'h01	/* SR2 value */ \
+	}
 `endif
 
 // Defaults

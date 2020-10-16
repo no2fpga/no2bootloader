@@ -8,9 +8,6 @@
 #include <no2usb/usb_proto.h>
 #include <no2usb/usb.h>
 
-#define NULL ((void*)0)
-#define num_elem(a) (sizeof(a) / sizeof(a[0]))
-
 
 static const struct {
 	struct usb_conf_desc conf;

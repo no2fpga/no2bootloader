@@ -134,7 +134,7 @@ static const struct usb_dev_desc _dev_desc = {
 	.idVendor		= 0x1d50,
 	.idProduct		= 0x6146,
 #endif
-	.bcdDevice		= 0x0004,	/* v0.4 */
+	.bcdDevice		= 0x0005,	/* v0.5 */
 	.iManufacturer		= 2,
 	.iProduct		= 3,
 	.iSerialNumber		= 1,

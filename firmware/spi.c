@@ -202,7 +202,7 @@ flash_read(void *dst, uint32_t addr, unsigned len)
 }
 
 void
-flash_page_program(void *src, uint32_t addr, unsigned len)
+flash_page_program(const void *src, uint32_t addr, unsigned len)
 {
 	uint8_t cmd[4] = { FLASH_CMD_PAGE_PROGRAM, ((addr >> 16) & 0xff), ((addr >> 8) & 0xff), (addr & 0xff)  };
 	struct spi_xfer_chunk xfer[2] = {

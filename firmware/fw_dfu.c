@@ -15,6 +15,7 @@
 #include "spi.h"
 #include <no2usb/usb.h>
 #include <no2usb/usb_dfu.h>
+#include <no2usb/usb_msos20.h>
 #include "utils.h"
 
 
@@ -115,6 +116,7 @@ void main()
 	serial_no_init();
 	usb_init(&dfu_stack_desc);
 	usb_dfu_init();
+	usb_msos20_init(NULL);
 	usb_connect();
 
 	/* Main loop */

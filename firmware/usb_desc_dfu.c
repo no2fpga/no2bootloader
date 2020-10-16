@@ -6,6 +6,7 @@
  */
 
 #include <no2usb/usb_proto.h>
+#include <no2usb/usb_msos20.h>
 #include <no2usb/usb.h>
 
 
@@ -73,7 +74,7 @@ static const struct usb_conf_desc * const _conf_desc_array[] = {
 static const struct usb_dev_desc _dev_desc = {
 	.bLength		= sizeof(struct usb_dev_desc),
 	.bDescriptorType	= USB_DT_DEV,
-	.bcdUSB			= 0x0200,
+	.bcdUSB			= 0x0201,
 	.bDeviceClass		= 0,
 	.bDeviceSubClass	= 0,
 	.bDeviceProtocol	= 0,
@@ -102,6 +103,7 @@ static const struct usb_dev_desc _dev_desc = {
 
 const struct usb_stack_descriptors dfu_stack_desc = {
 	.dev    = &_dev_desc,
+	.bos    = &msos20_winusb_bos,
 	.conf   = _conf_desc_array,
 	.n_conf = num_elem(_conf_desc_array),
 	.str    = _str_desc_array,

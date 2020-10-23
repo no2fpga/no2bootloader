@@ -6,6 +6,7 @@
  */
 
 #include <no2usb/usb_proto.h>
+#include <no2usb/usb_dfu_proto.h>
 #include <no2usb/usb_msos20.h>
 #include <no2usb/usb.h>
 
@@ -13,13 +14,13 @@
 static const struct {
 	struct usb_conf_desc conf;
 	struct usb_intf_desc if_fpga;
-	struct usb_dfu_desc dfu_fpga;
+	struct usb_dfu_func_desc dfu_fpga;
 	struct usb_intf_desc if_riscv;
-	struct usb_dfu_desc dfu_riscv;
+	struct usb_dfu_func_desc dfu_riscv;
 	struct usb_intf_desc if_bl_fpga;
-	struct usb_dfu_desc dfu_bl_fpga;
+	struct usb_dfu_func_desc dfu_bl_fpga;
 	struct usb_intf_desc if_bl_riscv;
-	struct usb_dfu_desc dfu_bl_riscv;
+	struct usb_dfu_func_desc dfu_bl_riscv;
 } __attribute__ ((packed)) _dfu_conf_desc = {
 	.conf = {
 		.bLength                = sizeof(struct usb_conf_desc),
@@ -43,8 +44,8 @@ static const struct {
 		.iInterface		= 5,
 	},
 	.dfu_fpga = {
-		.bLength		= sizeof(struct usb_dfu_desc),
-		.bDescriptorType	= USB_DT_DFU,
+		.bLength		= sizeof(struct usb_dfu_func_desc),
+		.bDescriptorType	= USB_DFU_DT_FUNC,
 		.bmAttributes		= 0x0f,
 		.wDetachTimeOut		= 1000,
 		.wTransferSize		= 4096,
@@ -62,8 +63,8 @@ static const struct {
 		.iInterface		= 6,
 	},
 	.dfu_riscv = {
-		.bLength		= sizeof(struct usb_dfu_desc),
-		.bDescriptorType	= USB_DT_DFU,
+		.bLength		= sizeof(struct usb_dfu_func_desc),
+		.bDescriptorType	= USB_DFU_DT_FUNC,
 		.bmAttributes		= 0x0f,
 		.wDetachTimeOut		= 1000,
 		.wTransferSize		= 4096,
@@ -81,8 +82,8 @@ static const struct {
 		.iInterface		= 7,
 	},
 	.dfu_bl_fpga = {
-		.bLength		= sizeof(struct usb_dfu_desc),
-		.bDescriptorType	= USB_DT_DFU,
+		.bLength		= sizeof(struct usb_dfu_func_desc),
+		.bDescriptorType	= USB_DFU_DT_FUNC,
 		.bmAttributes		= 0x0f,
 		.wDetachTimeOut		= 1000,
 		.wTransferSize		= 4096,
@@ -100,8 +101,8 @@ static const struct {
 		.iInterface		= 8,
 	},
 	.dfu_bl_riscv = {
-		.bLength		= sizeof(struct usb_dfu_desc),
-		.bDescriptorType	= USB_DT_DFU,
+		.bLength		= sizeof(struct usb_dfu_func_desc),
+		.bDescriptorType	= USB_DFU_DT_FUNC,
 		.bmAttributes		= 0x0f,
 		.wDetachTimeOut		= 1000,
 		.wTransferSize		= 4096,

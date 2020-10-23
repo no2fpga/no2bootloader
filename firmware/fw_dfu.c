@@ -15,6 +15,7 @@
 #include "spi.h"
 #include <no2usb/usb.h>
 #include <no2usb/usb_dfu.h>
+#include <no2usb/usb_dfu_proto.h>
 #include <no2usb/usb_msos20.h>
 #include "utils.h"
 
@@ -62,7 +63,7 @@ patch_descriptors(bool bl_upgrade)
 	int n = bl_upgrade ? 4 : 2;
 
 	/* We patch the descriptor length ... in RO section but not really RO */
-	conf->wTotalLength = sizeof( struct usb_conf_desc) + n * (sizeof(struct usb_intf_desc) + sizeof(struct usb_dfu_desc));
+	conf->wTotalLength = sizeof( struct usb_conf_desc) + n * (sizeof(struct usb_intf_desc) + sizeof(struct usb_dfu_func_desc));
 }
 
 

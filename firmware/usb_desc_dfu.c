@@ -45,7 +45,7 @@ static const struct {
 	.dfu_fpga = {
 		.bLength		= sizeof(struct usb_dfu_desc),
 		.bDescriptorType	= USB_DT_DFU,
-		.bmAttributes		= 0x0d,
+		.bmAttributes		= 0x0f,
 		.wDetachTimeOut		= 1000,
 		.wTransferSize		= 4096,
 		.bcdDFUVersion		= 0x0101,
@@ -64,7 +64,7 @@ static const struct {
 	.dfu_riscv = {
 		.bLength		= sizeof(struct usb_dfu_desc),
 		.bDescriptorType	= USB_DT_DFU,
-		.bmAttributes		= 0x0d,
+		.bmAttributes		= 0x0f,
 		.wDetachTimeOut		= 1000,
 		.wTransferSize		= 4096,
 		.bcdDFUVersion		= 0x0101,
@@ -83,7 +83,7 @@ static const struct {
 	.dfu_bl_fpga = {
 		.bLength		= sizeof(struct usb_dfu_desc),
 		.bDescriptorType	= USB_DT_DFU,
-		.bmAttributes		= 0x0d,
+		.bmAttributes		= 0x0f,
 		.wDetachTimeOut		= 1000,
 		.wTransferSize		= 4096,
 		.bcdDFUVersion		= 0x0101,
@@ -102,7 +102,7 @@ static const struct {
 	.dfu_bl_riscv = {
 		.bLength		= sizeof(struct usb_dfu_desc),
 		.bDescriptorType	= USB_DT_DFU,
-		.bmAttributes		= 0x0d,
+		.bmAttributes		= 0x0f,
 		.wDetachTimeOut		= 1000,
 		.wTransferSize		= 4096,
 		.bcdDFUVersion		= 0x0101,

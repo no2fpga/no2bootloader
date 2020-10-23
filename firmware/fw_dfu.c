@@ -101,6 +101,12 @@ usb_dfu_cb_flash_program(const void *data, uint32_t addr, unsigned size)
 	flash_page_program(data, addr, size);
 }
 
+void
+usb_dfu_cb_flash_read(void *data, uint32_t addr, unsigned size)
+{
+	flash_read(data, addr, size);
+}
+
 static const struct usb_dfu_zone dfu_zones[] = {
 	{ 0x00080000, 0x000a0000 },     /* iCE40 bitstream */
 	{ 0x000a0000, 0x000c0000 },     /* RISC-V firmware */

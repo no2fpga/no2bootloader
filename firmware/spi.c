@@ -68,6 +68,8 @@ spi_init(void)
 void
 spi_xfer(unsigned cs, struct spi_xfer_chunk *xfer, unsigned n)
 {
+	uint8_t rxd;
+
 	/* Setup CS */
 	spi_regs->csr = 0xf ^ (1 << cs);
 
@@ -77,14 +79,15 @@ spi_xfer(unsigned cs, struct spi_xfer_chunk *xfer, unsigned n)
 		{
 			spi_regs->txdr = xfer->write ? xfer->data[i] : 0x00;
 			while (!(spi_regs->sr & SPI_SR_RRDY));
+			rxd = spi_regs->rxdr;
 			if (xfer->read)
-				xfer->data[i] = spi_regs->rxdr;
+				xfer->data[i] = rxd;
 		}
 		xfer++;
 	}
 
 	/* Clear CS */
-	spi_regs->csr = 0xf ^ (1 << cs);
+	spi_regs->csr = 0xf;
 }
 
 

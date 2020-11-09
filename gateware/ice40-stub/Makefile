@@ -48,7 +48,7 @@ $(FW_PROJ_BASE)/fw_dfu.bin:
 	make -C $(FW_PROJ_BASE) fw_dfu.bin
 
 bootloader-clean:
-	if [ "$(PRE_CLEAN)" == "1" ]; then \
+	if test "$(PRE_CLEAN)" = "1"; then \
 		make clean; \
 		make -C $(GW_PROJ_BASE) clean; \
 		make -C $(FW_PROJ_BASE) clean; \

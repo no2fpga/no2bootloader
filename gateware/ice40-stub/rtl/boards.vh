@@ -89,6 +89,29 @@
 		2'b00, 8'h30,	/* SR1 value */ \
 		2'b11, 8'h01	/* SR2 value */ \
 	}
+`elsif BOARD_FOMU_HACKER
+	// FOMU Hacker version
+	`define HAS_RGB
+	`define RGB_MAP 12'h012		// 41=Red, 40=Green, 39=Blue
+		// Assumes AT25SF161
+	`define FLASH_LOCK { \
+		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \
+		2'b00, 8'h01,	/* WRITE_SR */ \
+		2'b00, 8'h30,	/* SR1 value */ \
+		2'b11, 8'h01	/* SR2 value */ \
+	}
+`elsif BOARD_FOMU_PVT1
+	// FOMU PVT1 (prod version)
+	`define HAS_RGB
+	`define RGB_MAP 12'h012		// 41=Red, 40=Green, 39=Blue
+		// Assumes GD25Q16C
+	`define FLASH_LOCK { \
+		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \
+		2'b00, 8'h01,	/* WRITE_SR */ \
+		2'b00, 8'h30,	/* SR1 value */ \
+		2'b11, 8'h03	/* SR2 value */ \
+	}
+		// For MX25R1635F: Don't flash lock, that flash sucks, only OTP stuff ...
 `endif
 
 // Defaults

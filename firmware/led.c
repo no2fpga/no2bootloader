@@ -129,6 +129,11 @@ led_color(uint8_t r, uint8_t g, uint8_t b)
 	led_regs->ip.pwrr = b;
 	led_regs->ip.pwrg = g;
 	led_regs->ip.pwrb = r;
+#elif defined(BOARD_FOMU_HACKER) || defined(BOARD_FOMU_PVT1)
+	// FOMU hacker board
+	led_regs->ip.pwrr = b;
+	led_regs->ip.pwrg = g;
+	led_regs->ip.pwrb = r;
 #else
 	// Default / Unknown
 	led_regs->ip.pwrr = r;

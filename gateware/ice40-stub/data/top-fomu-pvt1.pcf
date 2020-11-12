@@ -1,0 +1,20 @@
+## pkg: uwg30
+
+# SPI
+set_io -nowarn spi_mosi F1
+set_io -nowarn spi_miso E1
+set_io -nowarn spi_clk D1
+set_io -nowarn spi_cs_n C1
+
+# USB
+set_io -nowarn usb_dp A1
+set_io -nowarn usb_dn A2
+set_io -nowarn usb_pu A4
+
+# Button
+set_io -nowarn -pullup yes btn E4	# Pin 1
+
+# Leds
+set_io -nowarn rgb[0] A5
+set_io -nowarn rgb[1] B5
+set_io -nowarn rgb[2] C5

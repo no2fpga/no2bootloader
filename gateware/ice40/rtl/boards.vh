@@ -30,6 +30,20 @@
 	// osmocom E1 tracer
 	`define PLL_CORE
 	`define HAS_VIO
+`elsif BOARD_FOMU_HACKER
+	`define PLL_CORE
+	`define PLL_CUSTOM
+	`define PLL_DIVR 4'b0000
+	`define PLL_DIVF 7'b0001111
+	`define PLL_DIVQ 3'b100
+	`define PLL_FILTER_RANGE 3'b100
+`elsif BOARD_FOMU_PVT1
+	`define PLL_CORE
+	`define PLL_CUSTOM
+	`define PLL_DIVR 4'b0000
+	`define PLL_DIVF 7'b0001111
+	`define PLL_DIVQ 3'b100
+	`define PLL_FILTER_RANGE 3'b100
 `endif
 
 

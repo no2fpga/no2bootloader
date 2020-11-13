@@ -130,7 +130,7 @@ module top (
 			ST_WAIT:
 				// Wait for first release
 				if (btn_v == 1'b1)
-					state_nxt <= ST_SEL;
+					state_nxt <= ST_SEL_WAIT;
 
 			ST_SEL:
 				// If button press, temporarily disable it
@@ -174,7 +174,7 @@ module top (
 			timer <= timer + 1;
 
 	assign timer_rst  = (btn_v == 1'b0) | timer_tick;
-	assign timer_tick = (state == ST_SEL_WAIT) ? timer[15] : timer[23];
+	assign timer_tick = (state == ST_SEL_WAIT) ? timer[17] : timer[23];
 
 
 	// Flash locking

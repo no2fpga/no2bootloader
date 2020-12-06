@@ -32,6 +32,10 @@ PACKAGE := $(shell awk '/^\#\# pkg:/{print $$3; exit 1}' data/top-$(BOARD).pcf &
 SEED ?= 10
 NEXTPNR_ARGS = --pre-pack data/clocks.py --seed $(SEED)
 
+ifeq ($(ENABLE_UART), 1)
+YOSYS_READ_ARGS = -DENABLE_UART=1
+endif
+
 # Include default rules
 include ../build/project-rules.mk
 

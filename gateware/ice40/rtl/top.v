@@ -23,10 +23,10 @@ module top (
 	output wire usb_pu,
 
 	// Debug UART
-`ifndef BOARD_E1TRACER
+`ifdef ENABLE_UART
 	input  wire uart_rx,
-`endif
 	output wire uart_tx,
+`endif
 
 	// Button
 	input  wire btn,
@@ -244,10 +244,7 @@ module top (
 	// UART [1]
 	// ----
 
-`ifdef BOARD_E1TRACER
-	wire uart_rx = 1'b1;
-`endif
-
+`ifdef ENABLE_UART
 	uart_wb #(
 		.DIV_WIDTH(12),
 		.DW(WB_DW)
@@ -263,6 +260,10 @@ module top (
 		.clk      (clk_24m),
 		.rst      (rst)
 	);
+`else
+	assign wb_ack[1] = wb_cyc[1];
+	assign wb_rdata[1] = { wb_cyc[1], 31'h00000000 };	// Always empty
+`endif
 
 
 	// SPI [2]

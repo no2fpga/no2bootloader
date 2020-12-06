@@ -23,9 +23,7 @@ HEADERS_common=\
 
 SOURCES_common=\
 	start.S \
-	console.c \
 	led.c \
-	mini-printf.c  \
 	spi.c \
 	utils.c \
 	$(SOURCES_no2usb)
@@ -38,6 +36,14 @@ SOURCES_dfu=\
 	usb_desc_dfu.c \
 	$(NULL)
 
+ifeq ($(ENABLE_UART),1)
+SOURCES_common+= \
+	console.c \
+	mini-printf.c
+else
+SOURCES_common+= \
+	console_dummy.c
+endif
 
 all: fw_dfu.bin
 

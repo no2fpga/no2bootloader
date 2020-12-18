@@ -5,6 +5,10 @@ OBJCOPY = $(CROSS)objcopy
 ICEPROG = iceprog
 DFU_UTIL = dfu-util
 
+GITVER = $(shell git describe)
+TARGET_BASE=no2bootloader-$(BOARD)
+TARGET=$(TARGET_BASE)-$(GITVER)
+
 BOARD_DEFINE=BOARD_$(shell echo $(BOARD) | tr a-z\- A-Z_)
 CFLAGS=-Wall -Os -march=rv32i -mabi=ilp32 -ffreestanding -flto -nostartfiles -fomit-frame-pointer -Wl,--gc-section --specs=nano.specs -D$(BOARD_DEFINE) -I.
 
@@ -45,10 +49,10 @@ SOURCES_common+= \
 	console_dummy.c
 endif
 
-all: fw_dfu.bin
+all: $(TARGET).bin $(TARGET_BASE).bin $(TARGET_BASE).elf
 
 
-fw_dfu.elf: soc.lds $(HEADERS_dfu) $(SOURCES_dfu) $(HEADERS_common) $(SOURCES_common)
+$(TARGET).elf: soc.lds $(HEADERS_dfu) $(SOURCES_dfu) $(HEADERS_common) $(SOURCES_common)
 	$(CC) $(CFLAGS) -Wl,-Bstatic,-T,soc.lds,--strip-debug -o $@ $(SOURCES_common) $(SOURCES_dfu)
 
 
@@ -58,8 +62,13 @@ fw_dfu.elf: soc.lds $(HEADERS_dfu) $(SOURCES_dfu) $(HEADERS_common) $(SOURCES_co
 %.bin: %.elf
 	$(OBJCOPY) -O binary $< $@
 
+$(TARGET_BASE).bin: $(TARGET).bin
+	ln -sf $< $@
 
-prog: fw_dfu.bin
+$(TARGET_BASE).elf: $(TARGET).elf
+	ln -sf $< $@
+
+prog: $(TARGET).bin
 	$(ICEPROG) -o 384k $<
 
 

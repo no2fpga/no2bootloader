@@ -5,15 +5,6 @@
 # * WITH_MANUALS: build manual PDFs if set to "1"
 # * PUBLISH: upload manuals after building if set to "1" (ignored without WITH_MANUALS = "1")
 
-# ugly, ugly hack to work around the fact that we cannot _extend_ the path when executing
-# a docker container.  We can either override it (and loose our /opt/... toolchain paths)
-# or we can not specify the /build_bin whcih means the osmo-build-dep.sh is not found
-# See https://osmocom.org/issues/4911
-if [ -d /build_bin ]; then
-	PATH=$PATH:/build_bin
-	export PATH
-fi
-
 if ! [ -x "$(command -v osmo-build-dep.sh)" ]; then
 	echo "Error: We need to have scripts/osmo-deps.sh from http://git.osmocom.org/osmo-ci/ in PATH !"
 	exit 2

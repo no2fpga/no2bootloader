@@ -38,14 +38,14 @@ sudo-prog-mb: $(BUILD_TMP)/boot_mb.bin
 GW_PROJ_BASE=$(realpath $(BUILD_TMP)/../../ice40)
 FW_PROJ_BASE=$(realpath $(BUILD_TMP)/../../../firmware)
 
-$(BUILD_TMP)/bootloader.bin: $(BUILD_TMP)/$(PROJ).bin $(GW_PROJ_BASE)/build-tmp/no2bootloader-ice40.bin $(FW_PROJ_BASE)/fw_dfu.bin
-	./sw/mkmultiboot.py $@ $(BUILD_TMP)/$(PROJ).bin $(GW_PROJ_BASE)/build-tmp/no2bootloader-ice40.bin:$(FW_PROJ_BASE)/fw_dfu.bin
+$(BUILD_TMP)/bootloader.bin: $(BUILD_TMP)/$(PROJ).bin $(GW_PROJ_BASE)/build-tmp/no2bootloader-ice40.bin $(FW_PROJ_BASE)/no2bootloader-$(BOARD).bin
+	./sw/mkmultiboot.py $@ $(BUILD_TMP)/$(PROJ).bin $(GW_PROJ_BASE)/build-tmp/no2bootloader-ice40.bin:$(FW_PROJ_BASE)/no2bootloader-$(BOARD).bin
 
 $(GW_PROJ_BASE)/build-tmp/no2bootloader-ice40.bin:
 	make -C $(GW_PROJ_BASE)
 
-$(FW_PROJ_BASE)/fw_dfu.bin:
-	make -C $(FW_PROJ_BASE) fw_dfu.bin
+$(FW_PROJ_BASE)/no2bootloader-$(BOARD).bin:
+	make -C $(FW_PROJ_BASE) no2bootloader-$(BOARD).bin
 
 bootloader-clean:
 	if test "$(PRE_CLEAN)" = "1"; then \

@@ -74,6 +74,7 @@ module top (
 
 	// Boot selector
 	wire boot_now;
+	reg  boot_now_r;
 	reg  [1:0] boot_sel;
 
 	// Timer/Counter
@@ -224,6 +225,12 @@ module top (
 	// Boot command
 	assign boot_now = (state == ST_BOOT);
 
+	always @(posedge clk or posedge rst)
+		if (rst)
+			boot_now_r <= 1'b0;
+		else
+			boot_now_r <= boot_now;
+
 	// Image select
 	always @(posedge clk or posedge rst)
 	begin
@@ -237,7 +244,7 @@ module top (
 
 	// IP
 	SB_WARMBOOT warmboot (
-		.BOOT(boot_now),
+		.BOOT(boot_now_r),
 		.S0(boot_sel[0]),
 		.S1(boot_sel[1])
 	);

@@ -255,7 +255,7 @@ module top (
 
 	// Normal LEDs
 `ifdef HAS_LEDS
-	assign led = ~boot_sel;
+	assign led = ~boot_sel | {2{boot_now}};
 `endif
 
 	// RGB LEDs

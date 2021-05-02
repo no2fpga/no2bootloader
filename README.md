@@ -18,6 +18,11 @@ here.
 If you're interested in porting to other platforms, don't hesistate
 to contact me.
 
+Instructions
+------------
+
+If you are looking for the DFU bootloader. The build process is described in
+the [ice40-stub README](gateware/ice40-stub/README.md).
 
 License
 -------

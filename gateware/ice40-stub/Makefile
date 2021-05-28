@@ -12,8 +12,8 @@ PROJ_TOP_MOD := top
 
 # Target config
 BOARD ?= icebreaker
-DEVICE := $(shell awk '/^## dev:/{print $$3; exit 1}' data/top-$(BOARD).pcf && echo up5k)
-PACKAGE := $(shell awk '/^## pkg:/{print $$3; exit 1}' data/top-$(BOARD).pcf && echo sg48)
+DEVICE := $(shell awk '/^\#\# dev:/{print $$3; exit 1}' data/top-$(BOARD).pcf && echo up5k)
+PACKAGE := $(shell awk '/^\#\# pkg:/{print $$3; exit 1}' data/top-$(BOARD).pcf && echo sg48)
 
 NEXTPNR_ARGS = --freq 48 --no-promote-globals
 

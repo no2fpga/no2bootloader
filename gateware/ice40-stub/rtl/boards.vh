@@ -10,7 +10,7 @@
 `ifdef BOARD_BITSY_V0
 	// 1bitsquared iCEbreaker bitsy prototypes (v0.x)
 	`define HAS_USB
-	`define HAS_LEDS
+	`define HAS_2LED
 	`define HAS_RGB
 	`define RGB_DIM 3
 	`define RGB_MAP 12'h201		// 41=Blue, 40=Red, 39=Green
@@ -24,7 +24,7 @@
 `elsif BOARD_BITSY_V1
 	// 1bitsquared iCEbreaker bitsy prod (v1.x)
 	`define HAS_USB
-	`define HAS_LEDS
+	`define HAS_2LED
 	`define HAS_RGB
 	`define RGB_DIM 3
 	`define RGB_MAP 12'h210		// 41=Blue, 40=Green, 39=Red
@@ -38,7 +38,7 @@
 `elsif BOARD_ICEBREAKER
 	// 1bitsquare iCEbreaker
 	`define HAS_USB
-	`define HAS_LEDS
+	`define HAS_2LED
 	`define HAS_RGB
 	`define RGB_DIM 3
 	`define RGB_MAP 12'h012		// 41=Red, 40=Green, 39=Blue
@@ -117,6 +117,7 @@
 `elsif BOARD_REDIP_SID
 	// reDIP-SID
 	`define HAS_USB
+	`define HAS_1LED
 		// Assumes W25Q128
 	`define FLASH_LOCK { \
 		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \

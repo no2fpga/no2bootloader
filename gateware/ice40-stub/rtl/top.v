@@ -20,7 +20,10 @@ module top (
 	input  wire btn,
 
 	// LED
-`ifdef HAS_LEDS
+`ifdef HAS_1LED
+	output wire led,
+`endif
+`ifdef HAS_2LED
 	output wire [1:0] led,
 `endif
 
@@ -254,7 +257,24 @@ module top (
 	// ---
 
 	// Normal LEDs
-`ifdef HAS_LEDS
+		// Single-LED : Use a flasher
+`ifdef HAS_1LED
+	wire       led_i;
+	wire [3:0] led_flash_cnt;
+
+	led_flasher flasher_I (
+		.led       (led_i),
+		.flash_cnt (led_flash_cnt),
+		.clk       (clk),
+		.rst       (rst)
+	);
+
+	assign led = ~led_i | boot_now;
+	assign led_flash_cnt = 4'h1 + boot_sel;
+`endif
+
+		// Two-LED : Display directly
+`ifdef HAS_2LED
 	assign led = ~boot_sel | {2{boot_now}};
 `endif
 

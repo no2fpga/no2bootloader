@@ -6,10 +6,12 @@ PROJ_RTL_SRCS := $(addprefix rtl/, \
 	codec_fix.v \
 	flash_lock.v \
 	i2c_master.v \
+	led_flasher.v \
 )
 PROJ_TESTBENCHES := \
 	codec_fix_tb \
-	flash_lock_tb
+	flash_lock_tb \
+	led_flasher_tb
 PROJ_TOP_SRC := rtl/top.v
 PROJ_TOP_MOD := top
 

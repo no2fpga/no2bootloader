@@ -74,6 +74,7 @@ module top (
 	wire timer_rst;
 
 	// LED signalling
+	wire [3:0] led_flash_cnt;
 	wire led;
 
 	// Clock / Reset
@@ -244,6 +245,20 @@ module top (
 		.S0(boot_sel[0]),
 		.S1(boot_sel[1])
 	);
+
+
+	// LED
+	// ---
+
+	// Single-LED : Use a flasher
+	led_flasher flasher_I (
+		.led       (led),
+		.flash_cnt (led_flash_cnt),
+		.clk       (clk),
+		.rst       (rst)
+	);
+
+	assign led_flash_cnt = 4'h1 + boot_sel;
 
 
 	// Dummy USB

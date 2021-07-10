@@ -32,7 +32,9 @@ module top (
 	input  wire btn,
 
 	// LED
+`ifdef HAS_RGB
 	output wire [2:0] rgb,
+`endif
 
 `ifdef HAS_VIO
 	// Vio
@@ -292,6 +294,7 @@ module top (
 	// RGB LEDs [3]
 	// --------
 
+`ifdef HAS_RGB
 	ice40_rgb_wb #(
 		.CURRENT_MODE("0b1"),
 		.RGB0_CURRENT("0b000001"),
@@ -308,6 +311,14 @@ module top (
 		.clk        (clk_24m),
 		.rst        (rst)
 	);
+`else
+	reg rgb_ack;
+	always @(posedge clk_24m)
+		rgb_ack <= wb_cyc[3] & ~rgb_ack;
+
+	assign wb_ack[3] = rgb_ack;
+	assign wb_rdata[3] = 0;
+`endif
 
 
 	// USB Core [4 & 5]

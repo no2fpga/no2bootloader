@@ -9,18 +9,18 @@
 import sys
 
 """
-0		0x000000	Multiboot header
-16k     0x004000	Boot stub FPGA Image
-128k    0x020000	Boot stub Software image (not used)
+0       0x000000    Multiboot header
+16k     0x004000    Boot stub FPGA Image
+128k    0x020000    Boot stub Software image (not used)
 
-256k    0x040000	DFU FPGA Image
-384k    0x060000	DFU Software Image
+256k    0x040000    DFU FPGA Image
+384k    0x060000    DFU Software Image
 
-512k    0x080000	App 1 FPGA Image
-640k    0x0a0000	App 1 Software Image
+512k    0x080000    App 1 FPGA Image
+640k    0x0a0000    App 1 Software Image
 
-768k    0x0c0000	App 2 FPGA Image
-896k    0x0e0000	App 2 Software Image
+768k    0x0c0000    App 2 FPGA Image
+896k    0x0e0000    App 2 Software Image
 """
 
 
@@ -62,7 +62,7 @@ offset_map = [
 def load_image(img_name):
 	# Solit filename
 	if ':' in img_name:
-		bs_name, fw_name = img_name.split(':', 2)	
+		bs_name, fw_name = img_name.split(':', 2)
 		bs_name = bs_name or None
 		fw_name = fw_name or None
 	else:
@@ -75,7 +75,7 @@ def load_image(img_name):
 
 	return bs, fw
 
-	
+
 def main(argv0, out, *images):
 	# Build the header
 	mb_hdr = b''.join([hdr(m, o0) for m,o0,o1 in offset_map])

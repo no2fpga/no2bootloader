@@ -130,7 +130,7 @@ module flash_lock #(
 	// --------
 
 	// When to load shift reg
-	assign cmd_load = 
+	assign cmd_load =
 		(state == ST_CMD_START) |
 		((state == ST_CMD_SHIFT_HI) & bit_last & ~cmd_byte_last);
 
@@ -147,7 +147,7 @@ module flash_lock #(
 			cmd_byte_last <= im_rdata[8];
 			cmd_last <= im_rdata[9];
 		end
-	
+
 	always @(posedge clk)
 		if (cmd_load)
 			cmd_byte_data <= im_rdata[7:0];

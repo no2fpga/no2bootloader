@@ -91,6 +91,7 @@
 	}
 `elsif BOARD_FOMU_HACKER
 	// FOMU Hacker version
+	`define HAS_USB
 	`define HAS_RGB
 	`define RGB_MAP 12'h012		// 41=Red, 40=Green, 39=Blue
 		// Assumes AT25SF161
@@ -102,6 +103,7 @@
 	}
 `elsif BOARD_FOMU_PVT1
 	// FOMU PVT1 (prod version)
+	`define HAS_USB
 	`define HAS_RGB
 	`define RGB_MAP 12'h012		// 41=Red, 40=Green, 39=Blue
 		// Assumes GD25Q16C

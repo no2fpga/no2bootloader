@@ -131,6 +131,9 @@ static const struct usb_dev_desc _dev_desc = {
 #elif defined(BOARD_E1TRACER)
 	.idVendor		= 0x1d50,
 	.idProduct		= 0x6150,
+#elif defined(BOARD_REDIP_SID)
+	.idVendor		= 0x1d50,
+	.idProduct		= 0x6156,
 #else
 	.idVendor		= 0x1d50,
 	.idProduct		= 0x6146,

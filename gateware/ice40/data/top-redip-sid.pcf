@@ -16,5 +16,8 @@ set_io -nowarn uart_tx 38
 # Clock
 set_io -nowarn clk_in 20
 
-# Button
+# Button (shared with SDA)
 set_io -nowarn btn 9
+
+# LED (shared with SCL)
+set_io -nowarn led 6

@@ -32,6 +32,9 @@ module top (
 	input  wire btn,
 
 	// LED
+`ifdef HAS_1LED
+	output wire led,
+`endif
 `ifdef HAS_RGB
 	output wire [2:0] rgb,
 `endif
@@ -114,6 +117,12 @@ module top (
 	// WarmBoot
 	reg         boot_now;
 	reg   [1:0] boot_sel;
+
+	// Single led
+	reg         led_ena;
+	reg  [10:0] led_off;
+	reg  [10:0] led_on;
+	wire        led_i;
 
 	// Clock / Reset logic
 	wire clk_24m;
@@ -211,8 +220,8 @@ module top (
 	);
 
 
-	// Warm Boot [0]
-	// ---------
+	// Misc [0]
+	// ----
 
 	// Bus interface
 	assign wb_rdata[0] = 0;
@@ -225,6 +234,17 @@ module top (
 		end else if (wb_cyc[0] & wb_we & (wb_addr[2:0] == 3'b000)) begin
 			boot_now <= wb_wdata[2];
 			boot_sel <= wb_wdata[1:0];
+		end
+
+	always @(posedge clk_24m or posedge rst)
+		if (rst) begin
+			led_ena <= 1'b0;
+			led_off <= 0;
+			led_on  <= 0;
+		end else if (wb_cyc[0] & wb_we & (wb_addr[2:0] == 3'b001)) begin
+			led_ena <= wb_wdata[31];
+			led_off <= wb_wdata[26:16];
+			led_on  <= wb_wdata[10: 0];
 		end
 
 	// Helper
@@ -241,6 +261,20 @@ module top (
 		.clk      (clk_24m),
 		.rst      (rst)
 	);
+
+	// Single led : only variable rate
+`ifdef HAS_1LED
+	led_blinker blinker_I (
+		.led  (led_i),
+		.ena  (led_ena),
+		.off  (led_off),
+		.on   (led_on),
+		.clk  (clk_24m),
+		.rst  (rst)
+	);
+
+	assign led = ~led_i;
+`endif
 
 
 	// UART [1]

@@ -61,6 +61,7 @@
 	`define PLL_DIVF 7'b0011111
 	`define PLL_DIVQ 3'b100
 	`define PLL_FILTER_RANGE 3'b010
+	`define HAS_1LED
 `endif
 
 

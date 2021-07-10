@@ -26,6 +26,7 @@ extern const struct usb_stack_descriptors dfu_stack_desc;
 
 struct wb_misc {
 	uint32_t boot;
+	uint32_t led;
 } __attribute__((packed,aligned(4)));
 
 static volatile struct wb_misc * const misc_regs = (void*)(MISC_BASE);
@@ -72,6 +73,13 @@ patch_descriptors(bool bl_upgrade)
 
 	/* We patch the descriptor length ... in RO section but not really RO */
 	conf->wTotalLength = sizeof( struct usb_conf_desc) + n * (sizeof(struct usb_intf_desc) + sizeof(struct usb_dfu_func_desc));
+}
+
+static void
+set_single_led(bool bl_upgrade)
+{
+	/* Set the single led to slow or fast flash */
+	misc_regs->led = (1 << 31) | ((bl_upgrade ? 120 : 600) << 16) | (120 << 0);
 }
 
 
@@ -155,6 +163,7 @@ void main()
 	else
 		led_color(0, 16, 64);
 
+	set_single_led(bl_upgrade);
 	patch_descriptors(bl_upgrade);
 
 	/* Enable USB directly */

@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <string.h>
 
+#include "config.h"
 #include "console.h"
 #include "led.h"
 #include "mini-printf.h"
@@ -21,6 +22,14 @@
 
 
 extern const struct usb_stack_descriptors dfu_stack_desc;
+
+
+struct wb_misc {
+	uint32_t boot;
+} __attribute__((packed,aligned(4)));
+
+static volatile struct wb_misc * const misc_regs = (void*)(MISC_BASE);
+
 
 static void
 serial_no_init()
@@ -52,8 +61,7 @@ boot_app(void)
 	usb_disconnect();
 
 	/* Boot firmware */
-	volatile uint32_t *boot = (void*)0x80000000;
-	*boot = (1 << 2) | (2 << 0);
+	misc_regs->boot = (1 << 2) | (2 << 0);
 }
 
 static void

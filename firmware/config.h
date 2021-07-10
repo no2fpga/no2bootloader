@@ -7,6 +7,7 @@
 
 #pragma once
 
+#define MISC_BASE	0x80000000
 #define UART_BASE	0x81000000
 #define SPI_BASE	0x82000000
 #define LED_BASE	0x83000000

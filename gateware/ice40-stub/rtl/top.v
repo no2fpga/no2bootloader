@@ -120,40 +120,40 @@ module top (
 	always @(*)
 	begin
 		// Default is to stay put
-		state_nxt <= state;
+		state_nxt = state;
 
 		// Main case
 		case (state)
 			ST_START:
 				// Check for immediate boot
-				state_nxt <= btn_v ? ST_FLASH_LOCK : ST_WAIT;
+				state_nxt = btn_v ? ST_FLASH_LOCK : ST_WAIT;
 
 			ST_WAIT:
 				// Wait for first release
 				if (btn_v == 1'b1)
-					state_nxt <= ST_SEL_WAIT;
+					state_nxt = ST_SEL_WAIT;
 
 			ST_SEL:
 				// If button press, temporarily disable it
 				if (btn_f)
-					state_nxt <= ST_SEL_WAIT;
+					state_nxt = ST_SEL_WAIT;
 
 				// Or wait for timeout
 				else if (timer_tick)
-					state_nxt <= fl_skip_lock ? ST_BOOT : ST_FLASH_LOCK;
+					state_nxt = fl_skip_lock ? ST_BOOT : ST_FLASH_LOCK;
 
 			ST_SEL_WAIT:
 				// Wait for button to re-arm
 				if (timer_tick)
-					state_nxt <= ST_SEL;
+					state_nxt = ST_SEL;
 
 			ST_FLASH_LOCK:
 				if (fl_rdy)
-					state_nxt <= ST_BOOT;
+					state_nxt = ST_BOOT;
 
 			ST_BOOT:
 				// Nothing to do ... will reconfigure shortly
-				state_nxt <= state;
+				state_nxt = state;
 		endcase
 	end
 

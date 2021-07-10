@@ -1,0 +1,14 @@
+# SPI
+set_io -nowarn             spi_mosi 14
+set_io -nowarn -pullup yes spi_miso 17
+set_io -nowarn             spi_clk  15
+set_io -nowarn -pullup yes spi_cs_n 16
+
+# USB
+set_io -nowarn usb_dp 25
+set_io -nowarn usb_dn 23
+set_io -nowarn usb_pu 35
+
+# I2C + Button/LED
+set_io -nowarn scl_led 6
+set_io -nowarn sda_btn 9

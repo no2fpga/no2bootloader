@@ -114,6 +114,16 @@
 		2'b11, 8'h03	/* SR2 value */ \
 	}
 		// For MX25R1635F: Don't flash lock, that flash sucks, only OTP stuff ...
+`elsif BOARD_REDIP_SID
+	// reDIP-SID
+	`define HAS_USB
+		// Assumes W25Q128
+	`define FLASH_LOCK { \
+		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \
+		2'b00, 8'h01,	/* WRITE_SR */ \
+		2'b00, 8'h28,	/* SR1 value */ \
+		2'b11, 8'h03	/* SR2 value */ \
+	}
 `endif
 
 // Defaults

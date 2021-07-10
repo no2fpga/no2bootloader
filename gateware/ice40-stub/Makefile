@@ -3,9 +3,12 @@ PROJ := ice40-stub
 
 PROJ_DEPS := no2misc
 PROJ_RTL_SRCS := $(addprefix rtl/, \
+	codec_fix.v \
 	flash_lock.v \
+	i2c_master.v \
 )
 PROJ_TESTBENCHES := \
+	codec_fix_tb \
 	flash_lock_tb
 PROJ_TOP_SRC := rtl/top.v
 PROJ_TOP_MOD := top
@@ -18,6 +21,11 @@ DEVICE  := $(shell awk '/^$(H)$(H) dev:/{print $$3; exit 1}' data/top-$(BOARD).p
 PACKAGE := $(shell awk '/^$(H)$(H) pkg:/{print $$3; exit 1}' data/top-$(BOARD).pcf && echo sg48)
 
 NEXTPNR_ARGS = --freq 48 --no-promote-globals
+
+# Special board rules
+ifeq ($(BOARD),redip-sid)
+  PROJ_TOP_SRC := rtl/top-redip-sid.v
+endif
 
 # Include default rules
 include ../build/project-rules.mk

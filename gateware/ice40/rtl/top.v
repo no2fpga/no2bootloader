@@ -112,8 +112,8 @@ module top (
 	wire        ub_ack;
 
 	// WarmBoot
-	reg       boot_now;
-	reg [1:0] boot_sel;
+	reg         boot_now;
+	reg   [1:0] boot_sel;
 
 	// Clock / Reset logic
 	wire clk_24m;

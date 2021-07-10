@@ -36,6 +36,7 @@
 	`define PLL_CORE
 	`define HAS_VIO
 `elsif BOARD_FOMU_HACKER
+	// FOMU Hacker version
 	`define PLL_CORE
 	`define PLL_CUSTOM
 	`define PLL_DIVR 4'b0000
@@ -44,6 +45,7 @@
 	`define PLL_FILTER_RANGE 3'b100
 	`define HAS_RGB
 `elsif BOARD_FOMU_PVT1
+	// FOMU PVT1 (prod version)
 	`define PLL_CORE
 	`define PLL_CUSTOM
 	`define PLL_DIVR 4'b0000
@@ -52,6 +54,7 @@
 	`define PLL_FILTER_RANGE 3'b100
 	`define HAS_RGB
 `elsif BOARD_REDIP_SID
+	// reDIP-SID
 	`define PLL_CORE
 	`define PLL_CUSTOM
 	`define PLL_DIVR 4'b0000

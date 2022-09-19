@@ -288,12 +288,12 @@ module top (
 	reg  [`RGB_DIM:0] dim_cnt;
 
 	always @(posedge clk)
-		if (dim[`RGB_DIM])
+		if (dim_cnt[`RGB_DIM])
 			dim_cnt <= 0;
 		else
 			dim_cnt <= dim_cnt + 1;
 
-	assign dim = dim[`RGB_DIM];
+	assign dim = dim_cnt[`RGB_DIM];
 `else
 	assign dim = 1'b1;
 `endif

@@ -134,6 +134,10 @@ led_color(uint8_t r, uint8_t g, uint8_t b)
 	led_regs->ip.pwrr = b;
 	led_regs->ip.pwrg = g;
 	led_regs->ip.pwrb = r;
+#elif defined(BOARD_ICE40_USBTRACE)
+	led_regs->ip.pwrr = r;
+	led_regs->ip.pwrg = g;
+	led_regs->ip.pwrb = b;
 #else
 	// Default / Unknown
 	led_regs->ip.pwrr = r;

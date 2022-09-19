@@ -1,6 +1,6 @@
 0000000000000000
 Nitro FPGA
-!{"bitsy-v0": "iCEBreaker bitsy v0.x (DFU)", "bitsy-v1": "iCEBreaker bitsy v1.x (DFU)", "e1tracer": "E1 tracer (DFU)", "ice1usb": "icE1usb (DFU)", "icebreaker": "iCEBreaker (DFU)", "icepick": "iCEpick (DFU)", "fomu-hacker": "FOMU Hacker (DFU)", "fomu-pvt1": "FOMU PVT1 (DFU)", "redip-sid": "reDIP-SID (DFU)", "": "iCE40 USB Device (DFU)"}
+!{"bitsy-v0": "iCEBreaker bitsy v0.x (DFU)", "bitsy-v1": "iCEBreaker bitsy v1.x (DFU)", "e1tracer": "E1 tracer (DFU)", "ice1usb": "icE1usb (DFU)", "icebreaker": "iCEBreaker (DFU)", "icepick": "iCEpick (DFU)", "fomu-hacker": "FOMU Hacker (DFU)", "fomu-pvt1": "FOMU PVT1 (DFU)", "redip-sid": "reDIP-SID (DFU)", "ice40-usbtrace": "iCE40 USB Trace (DFU)", "": "iCE40 USB Device (DFU)"}
 DFU
 iCE40 bitstream
 RISC-V firmware

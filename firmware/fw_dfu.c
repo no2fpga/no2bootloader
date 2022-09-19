@@ -124,6 +124,16 @@ usb_dfu_cb_flash_read(void *data, uint32_t addr, unsigned size)
 	flash_read(data, addr, size);
 }
 
+void
+usb_dfu_cb_flash_raw(void *data, unsigned len)
+{
+	struct spi_xfer_chunk sx[1] = {
+		{ .data = data, .len = len, .read = true, .write = true, },
+	};
+	spi_xfer(SPI_CS_FLASH, sx, 1);
+}
+
+
 static const struct usb_dfu_zone dfu_zones[] = {
 	{ 0x00080000, 0x000a0000 },     /* iCE40 bitstream */
 	{ 0x000a0000, 0x000c0000 },     /* RISC-V firmware */

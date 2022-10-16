@@ -65,6 +65,9 @@
 `elsif BOARD_ICE40_USBTRACE
 	// iCE40 USB trace ( https://gitea.osmocom.org/electronics/ice40-usbtrace )
 	`define HAS_RGB
+`elsif BOARD_ICE_DONGLE
+	// @emeb ice-dongle
+	`define HAS_RGB
 `endif
 
 

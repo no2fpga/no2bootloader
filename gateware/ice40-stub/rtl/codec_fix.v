@@ -62,6 +62,7 @@ module codec_fix (
 	// I2C IOs from master core
 	wire        i2c_io_scl_oe;
 	wire        i2c_io_sda_oe;
+	wire        i2c_io_scl_i;
 	wire        i2c_io_sda_i;
 
 	// I2C Master IF
@@ -175,6 +176,9 @@ module codec_fix (
 	assign iob_scl_oe = (state == ST_IDLE) ? led  : i2c_io_scl_oe;
 	assign iob_sda_oe = (state == ST_IDLE) ? 1'b0 : i2c_io_sda_oe;
 
+		// We don't support clock stretch
+	assign i2c_io_scl_i = 1'b0;
+
 		// We never do reads or check ACK's
 	assign i2c_io_sda_i = 1'b0;
 
@@ -193,6 +197,7 @@ module codec_fix (
 	) master_I (
 		.scl_oe   (i2c_io_scl_oe),
 		.sda_oe   (i2c_io_sda_oe),
+		.scl_i    (i2c_io_scl_i),
 		.sda_i    (i2c_io_sda_i),
 		.data_in  (i2c_m_data_in),
 		.ack_in   (i2c_m_ack_in),

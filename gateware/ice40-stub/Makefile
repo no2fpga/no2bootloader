@@ -5,7 +5,6 @@ PROJ_DEPS := no2misc
 PROJ_RTL_SRCS := $(addprefix rtl/, \
 	codec_fix.v \
 	flash_lock.v \
-	i2c_master.v \
 	led_flasher.v \
 )
 PROJ_TESTBENCHES := \

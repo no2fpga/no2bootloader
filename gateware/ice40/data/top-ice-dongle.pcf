@@ -10,8 +10,8 @@ set_io -nowarn usb_dn 38
 set_io -nowarn usb_pu 37
 
 # UART
-set_io -nowarn uart_rx 45
-set_io -nowarn uart_tx 44
+set_io -nowarn uart_rx 12
+set_io -nowarn uart_tx 11
 
 # Clock
 set_io -nowarn clk_in 35

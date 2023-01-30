@@ -1,0 +1,16 @@
+# SPI
+set_io -nowarn -pullup yes spi_mosi 14
+set_io -nowarn -pullup yes spi_miso 17
+set_io -nowarn -pullup yes spi_clk  15
+set_io -nowarn -pullup yes spi_cs_n 16
+
+# USB
+set_io -nowarn usb_dp 19
+set_io -nowarn usb_dn 18
+set_io -nowarn usb_pu 21
+
+# Button
+set_io -nowarn btn 48
+
+# Misc
+set_io -nowarn misc 47	# pwr_off

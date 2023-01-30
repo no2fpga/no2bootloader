@@ -151,6 +151,17 @@
 		2'b00, 8'h28,	/* SR1 value */ \
 		2'b11, 8'h03	/* SR2 value */ \
 	}
+`elsif BOARD_XMAS_SNOOPY
+	// @tnt xmas-snoopy led controller
+	`define HAS_USB
+	`define MISC_SEL 2'b10
+		// Assumes S25FL064L
+	`define FLASH_LOCK { \
+		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \
+		2'b00, 8'h01,	/* WRITE_SR */ \
+		2'b00, 8'h2C,	/* SR1 value */ \
+		2'b11, 8'h03	/* SR2 value */ \
+	}
 `endif
 
 // Defaults

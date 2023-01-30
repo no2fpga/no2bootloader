@@ -19,7 +19,7 @@
 `elsif BOARD_ICEPICK
 	// iCEpick
 	`define PLL_CORE
-	`define HAS_VIO
+	`define MISC_SEL 2'b11
 	`define HAS_RGB
 `elsif BOARD_ICE1USB
 	// icE1usb
@@ -34,7 +34,7 @@
 `elsif BOARD_E1TRACER
 	// osmocom E1 tracer
 	`define PLL_CORE
-	`define HAS_VIO
+	`define MISC_SEL 2'b11
 `elsif BOARD_FOMU_HACKER
 	// FOMU Hacker version
 	`define PLL_CORE

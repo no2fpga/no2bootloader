@@ -36,7 +36,7 @@ set_io -nowarn -pullup yes sense_mux[1] 17
 set_io -nowarn -pullup yes sense_mux[0] 15
 
 # Vio
-set_io -nowarn vio_pdm 19
+set_io -nowarn misc 19
 
 # USB
 set_io -nowarn usb_dp 10

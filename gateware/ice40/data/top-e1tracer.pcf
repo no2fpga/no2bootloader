@@ -11,7 +11,7 @@ set_io -nowarn liu1_rx_data 47
 set_io -nowarn liu1_rx_clk  46
 
 # Vio (needed for compat with proto)
-set_io -nowarn vio_pdm 19
+set_io -nowarn misc 19
 
 # USB
 set_io -nowarn usb_dp 10

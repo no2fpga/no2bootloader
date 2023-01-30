@@ -52,7 +52,7 @@
 	}
 `elsif BOARD_ICEPICK
 	// iCEpick
-	`define HAS_VIO
+	`define MISC_SEL 2'b01
 	`define HAS_USB
 	`define HAS_RGB
 	`define RGB_MAP 12'h012		// 41=Red, 40=Green, 39=Blue
@@ -78,7 +78,7 @@
 	}
 `elsif BOARD_E1TRACER
 	// osmocom E1 tracer
-	`define HAS_VIO				// Compatibility with icepick proto
+	`define MISC_SEL 2'b01		// Compatibility with icepick proto
 	`define HAS_USB
 	`define HAS_RGB
 	`define RGB_MAP 12'h012		// 41=Red, 40=Green, 39=Blue

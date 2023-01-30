@@ -12,8 +12,8 @@
 
 module top (
 	// Special features
-`ifdef HAS_VIO
-	output reg vio_pdm,
+`ifdef MISC_SEL
+	output wire [($bits(`MISC_SEL)/2)-1:0] misc,
 `endif
 
 	// LED
@@ -342,11 +342,23 @@ module top (
 	// Special features
 	// ----------------
 
-	// Output a 50% duty cycle VIO which should be ~ 1.65v, enough to
-	// read the button state
-`ifdef HAS_VIO
+	// If the boards needs it, we can tie some pins to
+	// High-Z, 50% PDM, High, Low
+`ifdef MISC_SEL
+	reg        misc_osc = 1'b0;
+	wire [3:0] misc_opt;
+	wire [$bits(`MISC_SEL)-1:0] misc_sel = `MISC_SEL;
+
 	always @(posedge clk)
-		vio_pdm <= ~vio_pdm;
+		misc_osc <= ~misc_osc;
+
+	assign misc_opt = { 2'b10, misc_osc, 1'bz };
+
+	genvar i;
+	generate
+		for (i=0; i<$bits(`MISC_SEL); i=i+2)
+			assign misc[i/2] = misc_opt[misc_sel[i+:2]];
+	endgenerate
 `endif
 
 

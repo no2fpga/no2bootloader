@@ -11,9 +11,9 @@
 `include "boards.vh"
 
 module top (
-	// Vio
-`ifdef HAS_VIO
-	output wire vio_pdm,
+	// Special features
+`ifdef MISC_SEL
+	output wire [($bits(`MISC_SEL)/2)-1:0] misc,
 `endif
 
 	// LED
@@ -430,11 +430,26 @@ module top (
 	);
 
 
-	// Vio
-	// ----
+	// Special Features
+	// ----------------
 
-`ifdef HAS_VIO
-	assign vio_pdm = 1'b1;
+	// If the boards needs it, we can tie some pins to
+	// High-Z, 50% PDM, High, Low
+`ifdef MISC_SEL
+	reg        misc_osc = 1'b0;
+	wire [3:0] misc_opt;
+	wire [$bits(`MISC_SEL)-1:0] misc_sel = `MISC_SEL;
+
+	always @(posedge clk_24m)
+		misc_osc <= ~misc_osc;
+
+	assign misc_opt = { 2'b10, misc_osc, 1'bz };
+
+	genvar i;
+	generate
+		for (i=0; i<$bits(`MISC_SEL); i=i+2)
+			assign misc[i/2] = misc_opt[misc_sel[i+:2]];
+	endgenerate
 `endif
 
 

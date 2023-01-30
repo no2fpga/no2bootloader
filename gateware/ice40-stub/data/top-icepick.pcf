@@ -18,4 +18,4 @@ set_io -nowarn rgb[1] 40
 set_io -nowarn rgb[2] 41
 
 # Vio
-set_io -nowarn vio_pdm 19
+set_io -nowarn misc 19

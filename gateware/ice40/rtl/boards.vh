@@ -79,3 +79,11 @@
 	`define PLL_DIVQ 3'b100
 	`define PLL_FILTER_RANGE 3'b001
 `endif
+
+`ifdef USE_HF_OSC
+	`define PLL_CORE
+	`define PLL_DIVR 4'b0000
+	`define PLL_DIVF 7'b0111111
+	`define PLL_DIVQ 3'b100
+	`define PLL_FILTER_RANGE 3'b001
+`endif

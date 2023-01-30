@@ -31,7 +31,9 @@ module top (
 `endif
 
 	// Clock
+`ifndef USE_HF_OSC
 	input  wire clk_in,
+`endif
 
 	// Button
 	input  wire btn,
@@ -455,6 +457,19 @@ module top (
 	assign clk_24m = clk_24m_s;
 	assign rst = rst_s;
 `else
+
+`ifdef USE_HF_OSC
+	wire clk_in;
+
+	SB_HFOSC #(
+		.CLKHF_DIV("0b10")
+	) hfosc_I (
+		.CLKHFPU(1'b1),
+		.CLKHFEN(1'b1),
+		.CLKHF(clk_in)
+	);
+`endif
+
 	sysmgr sys_mgr_I (
 		.clk_in  (clk_in),
 		.rst_in  (1'b0),

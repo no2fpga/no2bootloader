@@ -31,7 +31,7 @@ set_io -nowarn -pullup yes btn 25
 set_io -nowarn -pullup yes spi_mosi 14
 set_io -nowarn -pullup yes spi_miso 17
 set_io -nowarn -pullup yes spi_clk 15
-set_io -nowarn -pullup yes spi_flash_cs_n 16
+set_io -nowarn -pullup yes spi_cs_n 16
 
 # Leds
 set_io -nowarn rgb[0] 39

@@ -15,7 +15,7 @@ module top (
 	inout  wire spi_mosi,
 	inout  wire spi_miso,
 	inout  wire spi_clk,
-	inout  wire spi_flash_cs_n,
+	inout  wire spi_cs_n,
 
 	// USB
 	inout  wire usb_dp,
@@ -313,7 +313,7 @@ module top (
 		.pad_mosi (spi_mosi),
 		.pad_miso (spi_miso),
 		.pad_clk  (spi_clk),
-		.pad_csn  (spi_flash_cs_n),
+		.pad_csn  (spi_cs_n),
 		.wb_addr  (wb_addr[3:0]),
 		.wb_rdata (wb_rdata[2]),
 		.wb_wdata (wb_wdata),

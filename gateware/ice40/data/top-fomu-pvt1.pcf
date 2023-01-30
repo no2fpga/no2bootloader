@@ -4,7 +4,7 @@
 set_io -nowarn spi_mosi F1
 set_io -nowarn spi_miso E1
 set_io -nowarn spi_clk D1
-set_io -nowarn spi_flash_cs_n C1
+set_io -nowarn spi_cs_n C1
 
 # USB
 set_io -nowarn usb_dp A1

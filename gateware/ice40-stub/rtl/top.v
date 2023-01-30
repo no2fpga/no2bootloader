@@ -16,9 +16,6 @@ module top (
 	output reg vio_pdm,
 `endif
 
-	// Button
-	input  wire btn,
-
 	// LED
 `ifdef HAS_1LED
 	output wire led,
@@ -30,6 +27,9 @@ module top (
 `ifdef HAS_RGB
 	output wire [2:0] rgb,
 `endif
+
+	// Button
+	input  wire btn,
 
 	// USB
 `ifdef HAS_USB

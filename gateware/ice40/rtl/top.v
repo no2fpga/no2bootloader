@@ -11,25 +11,10 @@
 `include "boards.vh"
 
 module top (
-	// SPI
-	inout  wire spi_mosi,
-	inout  wire spi_miso,
-	inout  wire spi_clk,
-	inout  wire spi_cs_n,
-
-	// USB
-	inout  wire usb_dp,
-	inout  wire usb_dn,
-	output wire usb_pu,
-
-	// Debug UART
-`ifdef ENABLE_UART
-	input  wire uart_rx,
-	output wire uart_tx,
+	// Vio
+`ifdef HAS_VIO
+	output wire vio_pdm,
 `endif
-
-	// Button
-	input  wire btn,
 
 	// LED
 `ifdef HAS_1LED
@@ -39,13 +24,28 @@ module top (
 	output wire [2:0] rgb,
 `endif
 
-`ifdef HAS_VIO
-	// Vio
-	output wire vio_pdm,
+	// Debug UART
+`ifdef ENABLE_UART
+	input  wire uart_rx,
+	output wire uart_tx,
 `endif
 
 	// Clock
-	input  wire clk_in
+	input  wire clk_in,
+
+	// Button
+	input  wire btn,
+
+	// USB
+	inout  wire usb_dp,
+	inout  wire usb_dn,
+	output wire usb_pu,
+
+	// SPI
+	inout  wire spi_mosi,
+	inout  wire spi_miso,
+	inout  wire spi_clk,
+	inout  wire spi_cs_n
 );
 
 	localparam WB_N  =  6;

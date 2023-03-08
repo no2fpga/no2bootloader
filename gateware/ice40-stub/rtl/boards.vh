@@ -154,7 +154,6 @@
 `elsif BOARD_XMAS_SNOOPY
 	// @tnt xmas-snoopy led controller
 	`define HAS_USB
-	`define MISC_SEL 2'b10
 		// Assumes S25FL064L
 	`define FLASH_LOCK { \
 		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \

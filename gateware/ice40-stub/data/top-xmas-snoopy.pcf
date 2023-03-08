@@ -9,8 +9,8 @@ set_io -nowarn usb_dp 19
 set_io -nowarn usb_dn 18
 set_io -nowarn usb_pu 21
 
-# Button
-set_io -nowarn btn 48
+# Power
+set_io -nowarn -pullup no  pwr_off 47
 
-# Misc
-set_io -nowarn misc 47	# pwr_off
+# Button
+set_io -nowarn -pullup yes btn 48

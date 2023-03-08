@@ -28,6 +28,10 @@ ifeq ($(BOARD),redip-sid)
   PROJ_TOP_SRC := rtl/top-redip-sid.v
 endif
 
+ifeq ($(BOARD),xmas-snoopy)
+  PROJ_TOP_SRC := rtl/top-xmas-snoopy.v
+endif
+
 # Include default rules
 include ../build/project-rules.mk
 

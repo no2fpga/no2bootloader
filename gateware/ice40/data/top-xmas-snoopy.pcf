@@ -12,5 +12,27 @@ set_io -nowarn usb_pu 21
 # Button
 set_io -nowarn btn 48
 
-# Misc
-set_io -nowarn misc 47	# pwr_off
+# Power
+set_io -nowarn -pullup yes -pullup_resistor 100K pwr_usb_n 45
+set_io -nowarn -pullup yes -pullup_resistor 100K pwr_chg_n 44
+set_io -nowarn -pullup no  pwr_off   47
+
+# LED matrix
+set_io -nowarn -pullup no led_a[0]  42
+set_io -nowarn -pullup no led_a[1]  43
+set_io -nowarn -pullup no led_a[2]  23
+set_io -nowarn -pullup no led_a[3]  25
+set_io -nowarn -pullup no led_a[4]  26
+set_io -nowarn -pullup no led_a[5]  27
+set_io -nowarn -pullup no led_a[6]  28
+set_io -nowarn -pullup no led_a[7]  31
+set_io -nowarn -pullup no led_a[8]  32
+set_io -nowarn -pullup no led_a[9]  34
+set_io -nowarn -pullup no led_a[10] 35
+set_io -nowarn -pullup no led_a[11] 36
+set_io -nowarn -pullup no led_a[12] 37
+set_io -nowarn -pullup no led_a[13] 38
+
+set_io -nowarn led_c[0] 39
+set_io -nowarn led_c[1] 40
+set_io -nowarn led_c[2] 41

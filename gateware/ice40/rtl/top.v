@@ -16,6 +16,14 @@ module top (
 	output wire [($bits(`MISC_SEL)/2)-1:0] misc,
 `endif
 
+`ifdef BOARD_XMAS_SNOOPY
+	input  wire        pwr_usb_n,
+	input  wire        pwr_chg_n,
+	output wire        pwr_off,
+	output wire [13:0] led_a,
+	output wire [ 2:0] led_c,
+`endif
+
 	// LED
 `ifdef HAS_1LED
 	output wire led,
@@ -450,6 +458,17 @@ module top (
 		for (i=0; i<$bits(`MISC_SEL); i=i+2)
 			assign misc[i/2] = misc_opt[misc_sel[i+:2]];
 	endgenerate
+`endif
+
+	// Special xmas-snoopy stuff
+`ifdef BOARD_XMAS_SNOOPY
+	xmas_snoopy xs_I (
+		.pwr_usb_n (pwr_usb_n),
+		.pwr_chg_n (pwr_chg_n),
+		.pwr_off   (pwr_off),
+		.led_a     (led_a),
+		.led_c     (led_c),
+	);
 `endif
 
 

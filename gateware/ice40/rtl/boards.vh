@@ -71,7 +71,6 @@
 `elsif BOARD_XMAS_SNOOPY
 	// @tnt xmas-snoopy led controller
 	`define USE_HF_OSC
-	`define MISC_SEL 2'b10
 `endif
 
 

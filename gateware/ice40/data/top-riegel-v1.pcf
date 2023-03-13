@@ -1,0 +1,26 @@
+## dev: hx8k
+## pkg: bg121
+
+# SPI
+set_io -nowarn spi_mosi       K9
+set_io -nowarn spi_miso       J9
+set_io -nowarn spi_clk        L10
+set_io -nowarn spi_cs_n K10
+
+# USB
+set_io -nowarn usb_pu K3 # PMOD A 2
+set_io -nowarn usb_dn J3 # PMOD A 3
+set_io -nowarn usb_dp G3 # PMOD A 4
+
+# UART
+set_io -nowarn uart_rx H3 # PMOD A 9
+set_io -nowarn uart_tx F3 # PMOS A 10
+
+# Clock
+set_io -nowarn clk_in L5
+
+# Button
+set_io -nowarn -pullup yes btn J5 # PMOD A 1
+
+# LED
+set_io -nowarn led E2

@@ -162,6 +162,19 @@
 		2'b00, 8'h2C,	/* SR1 value */ \
 		2'b11, 8'h03	/* SR2 value */ \
 	}
+`elsif BOARD_LATCHUP_BADGE
+	// m_w latchup badge
+	`define HAS_USB
+	`define HAS_RGB
+	`define RGB_DIM 3
+	`define RGB_MAP 12'h012		// 41=Red, 40=Green, 39=Blue
+		// Assumes W25Q64
+	`define FLASH_LOCK { \
+		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \
+		2'b00, 8'h01,	/* WRITE_SR */ \
+		2'b00, 8'h28,	/* SR1 value */ \
+		2'b11, 8'h03	/* SR2 value */ \
+	}
 `endif
 
 // Defaults

@@ -8,7 +8,7 @@ You can download pre built binaries from
 [YosysHQ fpga-toolchain](https://github.com/YosysHQ/fpga-toolchain/releases).
 
 And you can download the risc-v embedded toolchain from
-[xPack](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases).
+[xPack](https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/releases).
 
 
 Build
@@ -29,7 +29,7 @@ make BOARD=bitsy-v1 bootloader
 ```
 
 In some cases the risc-v cross compiler has a different prefix than the default
-`riscv-none-embed-`. You can adjust the prefix to the one you have installed on
+`riscv-none-elf-`. You can adjust the prefix to the one you have installed on
 your system using the `CROSS=` parameter.
 
 For example on Arch Linux the riscv crosscompiler has the prefix

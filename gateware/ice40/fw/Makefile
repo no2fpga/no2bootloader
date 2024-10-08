@@ -1,4 +1,4 @@
-CROSS ?= riscv-none-embed-
+CROSS ?= riscv-none-elf-
 CC = $(CROSS)gcc
 OBJCOPY = $(CROSS)objcopy
 CFLAGS=-Wall -Os -march=rv32i -mabi=ilp32 -ffreestanding -nostartfiles

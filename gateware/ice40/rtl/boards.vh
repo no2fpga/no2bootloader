@@ -68,6 +68,9 @@
 `elsif BOARD_ICE_DONGLE
 	// @emeb ice-dongle
 	`define HAS_RGB
+`elsif BOARD_OSMO_AMR
+	// osmo-amr ( https://gitea.osmocom.org/retronetworking/osmo-amr )
+	`define HAS_RGB
 `elsif BOARD_XMAS_SNOOPY
 	// @tnt xmas-snoopy led controller
 	`define USE_HF_OSC

@@ -151,6 +151,19 @@
 		2'b00, 8'h28,	/* SR1 value */ \
 		2'b11, 8'h03	/* SR2 value */ \
 	}
+`elsif BOARD_OSMO_AMR
+	// osmo-amr ( https://gitea.osmocom.org/retronetworking/osmo-amr )
+	`define HAS_USB
+	`define HAS_RGB
+	`define RGB_DIM 3
+	`define RGB_MAP 12'h102		// 41=Green, 40=Red, 39=Blue
+		// Assumes W25Q80
+	`define FLASH_LOCK { \
+		2'b01, 8'h50,   /* WRITE_ENABLE_VOLTATILE */ \
+		2'b00, 8'h01,	/* WRITE_SR */ \
+		2'b00, 8'h30,	/* SR1 value */ \
+		2'b11, 8'h01	/* SR2 value */ \
+	}
 `elsif BOARD_XMAS_SNOOPY
 	// @tnt xmas-snoopy led controller
 	`define HAS_USB
